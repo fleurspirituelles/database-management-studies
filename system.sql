@@ -329,3 +329,17 @@ INSERT INTO atleta (
     35000,
     NULL
 );
+
+/* Atualiza dados na tabela. */
+
+UPDATE atleta
+SET
+    id_clube = 10
+WHERE
+    nome = 'Jade Barbosa';
+
+UPDATE atleta
+SET
+    id_clube = 20
+WHERE
+    nome = 'Gustavo Borges';
