@@ -74,3 +74,12 @@ CREATE TABLE paraolimpico (
     CONSTRAINT paraolimpico_atleta_fk FOREIGN KEY ( id_atleta )
         REFERENCES atleta ( id )
 );
+
+CREATE TABLE campeonato (
+    id          NUMBER(3),
+    nome        VARCHAR2(70) NOT NULL,
+    local       VARCHAR2(40),
+    data_inicio DATE,
+    data_fim    DATE,
+    CONSTRAINT campeonato_pk PRIMARY KEY ( id )
+);
