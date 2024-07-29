@@ -14,9 +14,9 @@ CREATE TABLE atleta (
     CONSTRAINT atleta_pk PRIMARY KEY ( id ),
     CONSTRAINT atleta_uk UNIQUE ( cpf ),
     CONSTRAINT atleta_sexo_ck CHECK ( sexo IN ( 'M', 'F', 'm', 'f' ) ),
-    CONSTRAINT atleta_salario_ck CHECK ( salario > 0 ),
-    CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
-        REFERENCES clube ( id )
+    CONSTRAINT atleta_salario_ck CHECK ( salario > 0 )
+    /* CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
+        REFERENCES clube ( id ) */
 );
 
 /* Como a tabela clube ainda não existe, criamos sem a foreign key referenciando clube. */
