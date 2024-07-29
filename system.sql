@@ -249,3 +249,83 @@ INSERT INTO clube (
     TO_DATE('04/09/1921', 'DD/MM/YYYY'),
     NULL
 );
+
+INSERT INTO atleta (
+    id,
+    nome,
+    cpf,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+) VALUES (
+    1,
+    'Jade Barbosa',
+    '112.356.757-34',
+    'F',
+    TO_DATE('27/10/1990', 'DD/MM/YYYY'),
+    'Rua das Artes, 132',
+    10500,
+    NULL
+);
+
+INSERT INTO atleta (
+    id,
+    nome,
+    cpf,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+) VALUES (
+    2,
+    'Gustavo Borges',
+    '231.423.547-11',
+    'M',
+    TO_DATE('10/05/1985', 'DD/MM/YYYY'),
+    'Rua das Águas, 365',
+    48300.55,
+    NULL
+);
+
+INSERT INTO atleta (
+    id,
+    nome,
+    cpf,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+) VALUES (
+    3,
+    'Anderson Silva',
+    '358.967.111-21',
+    'M',
+    TO_DATE('1982-02-15', 'YYYY-MM-DD'),
+    'Av. Spider, 12',
+    7200.50,
+    30
+);
+
+INSERT INTO atleta (
+    id,
+    nome,
+    cpf,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+) VALUES (
+    4,
+    'Marta',
+    '987.654.321-00',
+    'F',
+    TO_DATE('1988-07-07', 'YYYY-MM-DD'),
+    'Rua da Bola, 1437',
+    35000,
+    NULL
+);
