@@ -2,6 +2,8 @@
 ALTER SESSION SET "_ORACLE_SCRIPT" = true;
 /* Habilita a execução de scripts com permissões de sistema. */
 
+/* TODO: Adicionar os tipos de dados, indicando as diferenças entre MySQL/PostgeSQL e Oracle. */
+
 CREATE TABLE atleta (
     id       NUMBER(4) NOT NULL,
     cpf      VARCHAR2(14) NOT NULL,
@@ -343,3 +345,6 @@ SET
     id_clube = 20
 WHERE
     nome = 'Gustavo Borges';
+    
+/* Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas pelo banco de dados em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete. */
+/* TODO: Adicionar descrição de ações referenciais engatilhadas. */
