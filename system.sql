@@ -155,3 +155,7 @@ ALTER TABLE atleta MODIFY
 
 /* Exclui uma coluna existente em uma tabela. */
 ALTER TABLE atleta DROP COLUMN idade;
+
+/* Insere dados em tabelas. */
+
+insert into presidente (id, nome, cpf, email, telefone) values (1, 'Godofredo Silva', '195.819.621-70', 'gsilva@gmail.com', '(16) 3411-9878');
