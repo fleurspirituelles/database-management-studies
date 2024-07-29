@@ -2,7 +2,24 @@
 ALTER SESSION SET "_ORACLE_SCRIPT" = true;
 /* Habilita a execução de scripts com permissões de sistema. */
 
-/* TODO: Adicionar os tipos de dados, indicando as diferenças entre MySQL/PostgeSQL e Oracle. */
+/*  
+    Oracle possui os seguintes data types:
+    VARCHAR2(size) é um dado de caracteres de tamanho variável (1 a 4000).
+    CHAR(size) é um dado de caracteres de tamanho fixo (1 a 2000).
+    NUMBER(p,s) é um dado numérico de tamanho variável, onde p é a precisão (1 a 38) e s a escala (-84 e 127).
+    DATE é um dado que aceita valores entre 01/01/4712 AC a 31/12/9999 DC).
+    CLOB é um dado de caracteres até 4GB.
+    BLOB é um dado binário até 4GB.
+
+    PRIMARY KEY define a chave primária da tabela.
+    FOREIGN KEY define uma chave estrangeira e por meio de REFERENCES indica a tabela de quem depende.
+    CHECK verifica condições para uma coluna, as quais devem ser satisfeitas na inserção/atualização.
+    UNIQUE determina que os valores da coluna deve ser único.
+    NOT NULL indica que a coluna não aceita nulos.
+
+    Por uma questão de boa prática, é adotado um padrão de criação de nomes de constraints:
+    PK, FK, CK e UK para as constraints PRIMARY KEY, FOREIGN KEY, CHECK e UNIQUE, respectivamente.
+*/
 
 CREATE TABLE atleta (
     id       NUMBER(4) NOT NULL,
@@ -363,12 +380,14 @@ DELETE FROM clube
 WHERE
     id = 20;
     
-/* Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
- Restrict evita a eliminação de uma tupla referenciada.
- Cascade especifica que, quando uma tupla referenciada é eliminada ou atualizada, as tuplas que a referenciam devem ser automaticamente eliminadas ou atualizadas também.
- No action significa que se alguma tupla ainda existir quando a restrição for verificada, um erro é levantado. Difere de restrict por permitir a verificação até o final da transação.
- Set null e set default determinam que os valores das tuplas que referenciam a coluna cujo valor foi eliminado ou atualizado serão modificados para null ou default. 
- Porém, se set default violar a restrição de chave estrangeira, a operação falhará. */
+/*  
+    Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
+    Restrict evita a eliminação de uma tupla referenciada.
+    Cascade especifica que, quando uma tupla referenciada é eliminada ou atualizada, as tuplas que a referenciam devem ser automaticamente eliminadas ou atualizadas também.
+    No action significa que se alguma tupla ainda existir quando a restrição for verificada, um erro é levantado. Difere de restrict por permitir a verificação até o final da transação.
+    Set null e set default determinam que os valores das tuplas que referenciam a coluna cujo valor foi eliminado ou atualizado serão modificados para null ou default. 
+    Porém, se set default violar a restrição de chave estrangeira, a operação falhará.
+*/
 
 ALTER TABLE atleta DROP CONSTRAINT atleta_clube_fk;
 
