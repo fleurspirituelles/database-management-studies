@@ -328,8 +328,8 @@ INSERT INTO atleta (
     'F',
     TO_DATE('1988-07-07', 'YYYY-MM-DD'),
     'Rua da Bola, 1437',
-    35000,
-    NULL
+    125000,
+    40
 );
 
 /* Atualiza dados na tabela. */
@@ -345,6 +345,27 @@ SET
     id_clube = 20
 WHERE
     nome = 'Gustavo Borges';
+
+DELETE FROM clube
+WHERE
+    id = 20;
     
 /* Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas pelo banco de dados em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete. */
 /* TODO: Adicionar descrição de ações referenciais engatilhadas. */
+
+ALTER TABLE atleta DROP CONSTRAINT atleta_clube_fk;
+
+ALTER TABLE atleta
+    ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
+        REFERENCES cube ( id )
+            ON DELETE CASCADE;
+
+UPDATE clube
+SET
+    id_presidente = NULL
+WHERE
+    id_presidente = 1;
+
+DELETE FROM presidente
+WHERE
+    nome = 'Godofredo Silva';
