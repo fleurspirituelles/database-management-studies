@@ -201,3 +201,51 @@ INSERT INTO presidente (
 );
 
 /* Utilizar sempre aspas simples. */
+
+INSERT INTO clube (
+    id,
+    nome,
+    data_fundacao,
+    id_presidente
+) VALUES (
+    10,
+    'Pinheiros',
+    TO_DATE('11/04/1965', 'DD/MM/YYYY'),
+    1
+);
+
+INSERT INTO clube (
+    id,
+    nome,
+    data_fundacao,
+    id_presidente
+) VALUES (
+    20,
+    'Flamengo',
+    TO_DATE('21/07/2010', 'DD/MM/YYYY'),
+    3
+);
+
+INSERT INTO clube (
+    id,
+    nome,
+    data_fundacao,
+    id_presidente
+) VALUES (
+    30,
+    'Clube da Luta',
+    TO_DATE('03/08/1977', 'DD/MM/YYYY'),
+    2
+);
+
+INSERT INTO clube (
+    id,
+    nome,
+    data_fundacao,
+    id_presidente
+) VALUES (
+    40,
+    'Santos',
+    TO_DATE('04/09/1921', 'DD/MM/YYYY'),
+    NULL
+);
