@@ -64,3 +64,13 @@ CREATE TABLE olimpico (
     CONSTRAINT olimpico_atleta_fk FOREIGN KEY ( id_atleta )
         REFERENCES atleta ( id )
 );
+
+CREATE TABLE paraolimpico (
+    id_atleta   NUMBER(4),
+    deficiencia VARCHAR2(30),
+    nivel       NUMBER,
+    CONSTRAINT paraolimpico_pk PRIMARY KEY ( id_atleta ),
+    CONSTRAINT paraolimpico_nivel_ck CHECK ( nivel BETWEEN 1 AND 5 ),
+    CONSTRAINT paraolimpico_atleta_fk FOREIGN KEY ( id_atleta )
+        REFERENCES atleta ( id )
+);
