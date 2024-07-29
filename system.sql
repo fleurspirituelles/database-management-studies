@@ -2,6 +2,32 @@
 ALTER SESSION SET "_ORACLE_SCRIPT" = true;
 /* Habilita a execução de scripts com permissões de sistema. */
 
+/* Limpa as tabelas quando necessário. */
+
+DROP TABLE centro_treinamento;
+
+DROP TABLE participa;
+
+DROP TABLE esporte;
+
+DROP TABLE pratica;
+
+DROP TABLE campeonato;
+
+DROP TABLE modalidade;
+
+DROP TABLE olimpico;
+
+DROP TABLE paraolimpico;
+
+DROP TABLE atleta_contato;
+
+DROP TABLE atleta;
+
+DROP TABLE clube;
+
+DROP TABLE presidente;
+
 /*  
     Oracle possui os seguintes data types:
     VARCHAR2(size) é um dado de caracteres de tamanho variável (1 a 4000).
@@ -170,12 +196,14 @@ CREATE TABLE participa (
 DESCRIBE atleta;
 DESC atleta;
 
-/* Consulta todas as tabelas pertencentes ao usuário conectado: */
+/* Consulta todas as tabelas pertencentes ao usuário conectado:
 
 SELECT
     table_name
 FROM
     user_tables;
+
+*/
 
 /* Adiciona uma coluna em uma tabela existente. */
 ALTER TABLE atleta ADD idade DATE;
@@ -375,10 +403,6 @@ SET
     id_clube = 20
 WHERE
     nome = 'Gustavo Borges';
-
-DELETE FROM clube
-WHERE
-    id = 20;
     
 /*  
     Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
