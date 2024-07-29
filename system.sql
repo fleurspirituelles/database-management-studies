@@ -158,4 +158,44 @@ ALTER TABLE atleta DROP COLUMN idade;
 
 /* Insere dados em tabelas. */
 
-insert into presidente (id, nome, cpf, email, telefone) values (1, 'Godofredo Silva', '195.819.621-70', 'gsilva@gmail.com', '(16) 3411-9878');
+INSERT INTO presidente (
+    id,
+    nome,
+    cpf,
+    email,
+    telefone
+) VALUES (
+    1,
+    'Godofredo Silva',
+    '195.819.621-70',
+    'gsilva@gmail.com',
+    '(16) 3411-9878'
+);
+
+INSERT INTO presidente (
+    id,
+    nome,
+    cpf,
+    email,
+    telefone
+) VALUES (
+    2,
+    'Maria Sincera',
+    '876.987.345-66',
+    'marias@globo.com',
+    '(19) 99876-8764'
+);
+
+INSERT INTO presidente (
+    id,
+    nome,
+    cpf,
+    email,
+    telefone
+) VALUES (
+    3,
+    'Patrício Dias',
+    '100.200.300-44',
+    'padias@outlook.com',
+    '(11) 91254-8756'
+);
