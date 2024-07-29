@@ -30,3 +30,20 @@ CREATE TABLE presidente (
     CONSTRAINT presidente_pk PRIMARY KEY ( id ),
     CONSTRAINT presidente_cpf_uk UNIQUE ( cpf )
 );
+
+CREATE TABLE clube (
+    id            NUMBER(4) NOT NULL,
+    nome          VARCHAR2(40) NOT NULL,
+    data_fundacao DATE,
+    id_presidente NUMBER(4),
+    CONSTRAINT clube_pk PRIMARY KEY ( id ),
+    CONSTRAINT clube_nome_pk UNIQUE ( nome ),
+    CONSTRAINT clube_presidente_fk FOREIGN KEY ( id_presidente )
+        REFERENCES presidente ( id )
+);
+
+/* Agora, com a tabela clube criada, é possível criar a constraint para atleta. */
+
+ALTER TABLE atleta
+    ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
+        REFERENCES clube ( id );
