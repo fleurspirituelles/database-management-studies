@@ -145,3 +145,13 @@ CREATE TABLE participa (
     CONSTRAINT participa_campeonato_fk FOREIGN KEY ( id_campeonato )
         REFERENCES campeonato ( id )
 );
+
+/* Adiciona uma coluna em uma tabela existente. */
+ALTER TABLE atleta ADD idade DATE;
+
+/*Altera uma coluna existente. */
+ALTER TABLE atleta MODIFY
+    idade NUMBER(3);
+
+/* Exclui uma coluna existente em uma tabela. */
+ALTER TABLE atleta DROP COLUMN idade;
