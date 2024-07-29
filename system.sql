@@ -47,3 +47,20 @@ CREATE TABLE clube (
 ALTER TABLE atleta
     ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
         REFERENCES clube ( id );
+
+CREATE TABLE modalidade (
+    id        NUMBER(3),
+    descricao VARCHAR2(30),
+    olimpica  CHAR(1) DEFAULT 'n',
+    CONSTRAINT modalidade_pk PRIMARY KEY ( id ),
+    CONSTRAINT modalidade_olimpica_ck CHECK ( olimpica IN ( 'S', 's', 'N', 'n' ) )
+);
+
+CREATE TABLE olimpico (
+    id_atleta         NUMBER(4),
+    incentivo_governo CHAR(1),
+    CONSTRAINT olimpico_pk PRIMARY KEY ( id_atleta ),
+    CONSTRAINT olimpico_incentivo_ck CHECK ( incentivo_governo IN ( 'S', 's', 'N', 'n' ) ),
+    CONSTRAINT olimpico_atleta_fk FOREIGN KEY ( id_atleta )
+        REFERENCES atleta ( id )
+);
