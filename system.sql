@@ -121,3 +121,27 @@ CREATE TABLE pratica (
     CONSTRAINT pratica_modalidade_fk FOREIGN KEY ( id_modalidade )
         REFERENCES modalidade ( id )
 );
+
+CREATE TABLE esporte (
+    registro_atleta NUMBER(8),
+    id_atleta       NUMBER(4),
+    id_modalidade   NUMBER(3),
+    CONSTRAINT esporte_pk PRIMARY KEY ( registro_atleta ),
+    CONSTRAINT esporte_pratica_fk FOREIGN KEY ( id_atleta,
+                                                id_modalidade )
+        REFERENCES pratica ( id_atleta,
+                             id_modalidade )
+);
+
+CREATE TABLE participa (
+    registro_atleta NUMBER(8),
+    id_campeonato   NUMBER(3),
+    colocacao       NUMBER(5),
+    valor_premiacao NUMBER(10, 2) DEFAULT 0,
+    CONSTRAINT participa_pk PRIMARY KEY ( registro_atleta,
+                                          id_campeonato ),
+    CONSTRAINT participa_registro_fk FOREIGN KEY ( registro_atleta )
+        REFERENCES esporte ( registro_atleta ),
+    CONSTRAINT participa_campeonato_fk FOREIGN KEY ( id_campeonato )
+        REFERENCES campeonato ( id )
+);
