@@ -148,6 +148,18 @@ CREATE TABLE participa (
         REFERENCES campeonato ( id )
 );
 
+/* Descreve a estrutura básica de uma tabela, isto é, suas colunas, tipos de dados, tamanhos, e se aceitam ou não valores nulos. */
+
+DESCRIBE atleta;
+DESC atleta;
+
+/* Consulta todas as tabelas pertencentes ao usuário conectado: */
+
+SELECT
+    table_name
+FROM
+    user_tables;
+
 /* Adiciona uma coluna em uma tabela existente. */
 ALTER TABLE atleta ADD idade DATE;
 
@@ -203,6 +215,7 @@ INSERT INTO presidente (
 );
 
 /* Utilizar sempre aspas simples. */
+/* Para formatar uma data utiliza-se a função to_date. Alguns formatos são DD/MM/YYYY, DDMMYYYY, YYYY-MM-DD. */
 
 INSERT INTO clube (
     id,
@@ -350,14 +363,18 @@ DELETE FROM clube
 WHERE
     id = 20;
     
-/* Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas pelo banco de dados em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete. */
-/* TODO: Adicionar descrição de ações referenciais engatilhadas. */
+/* Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
+ Restrict evita a eliminação de uma tupla referenciada.
+ Cascade especifica que, quando uma tupla referenciada é eliminada ou atualizada, as tuplas que a referenciam devem ser automaticamente eliminadas ou atualizadas também.
+ No action significa que se alguma tupla ainda existir quando a restrição for verificada, um erro é levantado. Difere de restrict por permitir a verificação até o final da transação.
+ Set null e set default determinam que os valores das tuplas que referenciam a coluna cujo valor foi eliminado ou atualizado serão modificados para null ou default. 
+ Porém, se set default violar a restrição de chave estrangeira, a operação falhará. */
 
 ALTER TABLE atleta DROP CONSTRAINT atleta_clube_fk;
 
 ALTER TABLE atleta
     ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
-        REFERENCES cube ( id )
+        REFERENCES clube ( id )
             ON DELETE CASCADE;
 
 UPDATE clube
