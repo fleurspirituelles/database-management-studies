@@ -199,3 +199,5 @@ INSERT INTO presidente (
     'padias@outlook.com',
     '(11) 91254-8756'
 );
+
+/* Utilizar sempre aspas simples. */
