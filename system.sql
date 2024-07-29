@@ -429,3 +429,127 @@ WHERE
 DELETE FROM presidente
 WHERE
     nome = 'Godofredo Silva';
+
+/* Recupera todas as colunas e os registros da tabela atleta: */
+
+/* SELECT
+    "A1"."ID"       "ID",
+    "A1"."CPF"      "CPF",
+    "A1"."NOME"     "NOME",
+    "A1"."SEXO"     "SEXO",
+    "A1"."DATANASC" "DATANASC",
+    "A1"."ENDERECO" "ENDERECO",
+    "A1"."SALARIO"  "SALARIO",
+    "A1"."ID_CLUBE" "ID_CLUBE"
+FROM
+    "SYSTEM"."ATLETA" "A1";
+*/
+
+SELECT
+    id,
+    cpf,
+    nome,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+FROM
+    atleta;
+    
+/* Recupera o id, data de nascimento, endereço e salário dos atletas: */
+
+/*
+SELECT
+    "A1"."ID"       "ID",
+    "A1"."DATANASC" "DATANASC",
+    "A1"."ENDERECO" "ENDERECO",
+    "A1"."SALARIO"  "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1";
+*/
+
+SELECT
+    id,
+    datanasc,
+    endereco,
+    salario
+FROM
+    atleta;
+    
+/* Recupera o id, nome e id do presidente dos clubes, exibindo os títulos das colunas como ID_CLUBE, NOME_CLUBE e PRESIDENTE: */
+
+/*
+SELECT
+    "A1"."ID"            "ID_CLUBE",
+    "A1"."NOME"          "NOME_CLUBE",
+    "A1"."ID_PRESIDENTE" "PRESIDENTE"
+FROM
+    "SYSTEM"."CLUBE" "A1";
+*/
+SELECT
+    id            AS "ID_CLUBE",
+    nome          AS "NOME_CLUBE",
+    id_presidente AS "PRESIDENTE"
+FROM
+    clube;
+
+/* Recupera o nome e o salário dos atletas cujos nomes comecem com a letra "J". */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."NOME" LIKE 'J%';
+*/
+
+SELECT
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    nome LIKE 'J%';
+    
+/* Recupera o nome e o sexo dos atletas cuja penúltima letra do nome seja "t": */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."NOME" LIKE '%t_';
+*/
+
+SELECT
+    nome,
+    sexo
+FROM
+    atleta
+WHERE
+    nome LIKE '%t_';
+    
+/* Recupera o nome e o salário dos atletas que ganhem entre 5000 e 250000: */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."SALARIO" BETWEEN 5000 AND 250000;
+*/
+
+SELECT
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    salario BETWEEN 5000 AND 250000;
