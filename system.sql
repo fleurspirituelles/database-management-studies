@@ -83,3 +83,41 @@ CREATE TABLE campeonato (
     data_fim    DATE,
     CONSTRAINT campeonato_pk PRIMARY KEY ( id )
 );
+
+CREATE TABLE centro_treinamento (
+    id_clube  NUMBER(4),
+    id_centro NUMBER(4),
+    fone      VARCHAR2(20),
+    rua       VARCHAR2(50),
+    nro       NUMBER,
+    bairro    VARCHAR2(50),
+    cep       VARCHAR2(9),
+    cidade    VARCHAR2(50),
+    uf        CHAR(2),
+    CONSTRAINT ct_pk PRIMARY KEY ( id_clube,
+                                   id_centro ),
+    CONSTRAINT ct_clube_fk FOREIGN KEY ( id_clube )
+        REFERENCES clube ( id )
+);
+
+CREATE TABLE atleta_contato (
+    id_atleta NUMBER(4),
+    contato   VARCHAR(20),
+    CONSTRAINT atleta_contato_pk PRIMARY KEY ( id_atleta,
+                                               contato ),
+    CONSTRAINT atleta_contato_fk FOREIGN KEY ( id_atleta )
+        REFERENCES atleta ( id )
+);
+
+CREATE TABLE pratica (
+    id_atleta     NUMBER(4),
+    id_modalidade NUMBER(3),
+    data_inicio   DATE,
+    experiencia   NUMBER,
+    CONSTRAINT pratica_pk PRIMARY KEY ( id_atleta,
+                                        id_modalidade ),
+    CONSTRAINT pratica_atleta_fk FOREIGN KEY ( id_atleta )
+        REFERENCES atleta ( id ),
+    CONSTRAINT pratica_modalidade_fk FOREIGN KEY ( id_modalidade )
+        REFERENCES modalidade ( id )
+);
