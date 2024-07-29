@@ -19,4 +19,14 @@ CREATE TABLE atleta (
         REFERENCES clube ( id ) */
 );
 
-/* Como a tabela clube ainda não existe, criamos sem a foreign key referenciando clube. */
+/* Como a tabela clube ainda não existe, a tabela é criada sem a foreign key referenciando clube. */
+
+CREATE TABLE presidente (
+    id       NUMBER(4),
+    cpf      VARCHAR2(14) NOT NULL,
+    nome     VARCHAR2(50) NOT NULL,
+    email    VARCHAR2(80),
+    telefone VARCHAR2(20),
+    CONSTRAINT presidente_pk PRIMARY KEY ( id ),
+    CONSTRAINT presidente_cpf_uk UNIQUE ( cpf )
+);
