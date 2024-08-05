@@ -7314,10 +7314,10 @@ INSERT INTO centro_treinamento (
     'TX'
 );
 
-/* Uma sequence pode automaticamente gerar números únicos.
-É um objeto compartilhável (pode ser utilizado em várias tabelas).
-Pode ser utilizado para criar valores em chaves primárias.
-Permite especificar valores de incremento, início, máximo e mínimo, se é cíclica, e quantos valores são pré-alocados e armazenados em cache.
+/*  Uma sequence pode automaticamente gerar números únicos.
+    É um objeto compartilhável (pode ser utilizado em várias tabelas).
+    Pode ser utilizado para criar valores em chaves primárias.
+    Permite especificar valores de incremento, início, máximo e mínimo, se é cíclica, e quantos valores são pré-alocados e armazenados em cache.
 */
 
 CREATE SEQUENCE clube_seq INCREMENT BY 10 START WITH 100 MAXVALUE 9999 NOCACHE NOCYCLE;
@@ -7507,3 +7507,145 @@ WHERE
     salario < 10000
 ORDER BY
     salario DESC;
+    
+/*  A função lower converte todos os caracteres para minúsculo.
+    A função upper converte todos os caracteres para maiúsculo.
+    A função initcap converte os caracteres iniciais das palavras em maiúsculo. */
+
+SELECT
+    lower(nome),
+    upper(nome),
+    initcap(endereco)
+FROM
+    atleta;
+    
+/*  A função concat concatena dois textos ou colunas.
+    Só aceita dois argumentos. Normalmente é utilizado || para concatenação, pois não possui limite de argumentos. */
+
+SELECT
+    concat(nome, data_fundacao)
+FROM
+    clube;
+    
+/* A função substr recupera parte de um texto ou coluna. */
+
+SELECT
+    substr(nome, 1, 5)
+FROM
+    atleta;
+
+/* A função length recupera o tamanho de um texto ou coluna. */
+
+SELECT
+    nome,
+    length(nome) AS tamanho
+FROM
+    atleta;
+
+/*  A função round arredonda casas decimais.
+    A função trunc trunca as casas decimais. */
+
+SELECT
+    nome,
+    round(salario, 0),
+    trunc(salario, 1)
+FROM
+    atleta;
+    
+/*  A função trim remove espaços em branco do início e fim de uma string. 
+    As funções ltrim e rtrim removem espaços do início (left) e fim (right) de uma string, respectivamente. */
+
+SELECT
+    TRIM(nome)
+FROM
+    atleta;
+
+/* A função replace substitui as ocorrências de um ou mais caracteres por outros. */
+
+SELECT
+    replace(nome, 'e', 'i')
+FROM
+    clube;
+
+/* A função translate substitui as ocorrências de vários caracteres simultaneamente.*/
+
+SELECT
+    translate(nome, 'aei', 'ouy')
+FROM
+    clube;
+    
+/* A função nvl testa se o valor de uma coluna é nulo e aplica o tratamento informado caso seja. */
+
+SELECT
+    nome,
+    nvl(id_clube, 0)
+FROM
+    atleta;
+
+SELECT
+    nome,
+    nvl(to_char(id_clube), 'Não possui')
+FROM
+    atleta;
+    
+/* A função case é uma estrutura condicinal. */
+
+SELECT
+    nome,
+    sexo,
+    CASE sexo
+        WHEN 'M' THEN
+            'Masculino'
+        WHEN 'F' THEN
+            'Feminino'
+        ELSE
+            'Não Informado'
+    END
+FROM
+    atleta;
+
+SELECT
+    nome,
+    salario,
+    CASE
+        WHEN salario > 50000 THEN
+            0.3
+        WHEN salario > 25000 THEN
+            0.2
+        WHEN salario > 5000  THEN
+            0.1
+        ELSE
+            0
+    END AS imposto
+FROM
+    atleta;
+    
+/*  A função decode é uma estrutura similar ao CASE, mas mais econômica em texto. 
+    É utilizada apenas em comparações com igualdade. */
+
+SELECT
+    nome,
+    sexo,
+    decode(sexo, 'M', 'Masculino', 'F', 'Feminino',
+           'Não Informado')
+FROM
+    atleta;
+    
+/*  Ao utilizar to_char para conversão: 
+    O formato precisa ser escrito entre aspas simples.
+    É case sensitive.
+    Pode incluir qualquer formato de data válido.
+    É separado do valor da data por vírgula. */
+
+SELECT
+    nome,
+    to_char(datanasc, 'DD Month YYYY') AS data_dasc
+FROM
+    atleta;
+
+SELECT
+    to_char(valor_premiacao, '$99,999.00') valor
+FROM
+    participa
+WHERE
+    id_campeonato IN ( 7, 10 );
