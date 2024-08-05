@@ -215,195 +215,9 @@ ALTER TABLE atleta MODIFY
 /* Exclui uma coluna existente em uma tabela. */
 ALTER TABLE atleta DROP COLUMN idade;
 
-/* Insere dados em tabelas. */
-
-INSERT INTO presidente (
-    id,
-    nome,
-    cpf,
-    email,
-    telefone
-) VALUES (
-    1,
-    'Godofredo Silva',
-    '195.819.621-70',
-    'gsilva@gmail.com',
-    '(16) 3411-9878'
-);
-
-INSERT INTO presidente (
-    id,
-    nome,
-    cpf,
-    email,
-    telefone
-) VALUES (
-    2,
-    'Maria Sincera',
-    '876.987.345-66',
-    'marias@globo.com',
-    '(19) 99876-8764'
-);
-
-INSERT INTO presidente (
-    id,
-    nome,
-    cpf,
-    email,
-    telefone
-) VALUES (
-    3,
-    'Patrício Dias',
-    '100.200.300-44',
-    'padias@outlook.com',
-    '(11) 91254-8756'
-);
-
 /* Utilizar sempre aspas simples. */
 /* Para formatar uma data utiliza-se a função to_date. Alguns formatos são DD/MM/YYYY, DDMMYYYY, YYYY-MM-DD. */
 
-INSERT INTO clube (
-    id,
-    nome,
-    data_fundacao,
-    id_presidente
-) VALUES (
-    10,
-    'Pinheiros',
-    TO_DATE('11/04/1965', 'DD/MM/YYYY'),
-    1
-);
-
-INSERT INTO clube (
-    id,
-    nome,
-    data_fundacao,
-    id_presidente
-) VALUES (
-    20,
-    'Flamengo',
-    TO_DATE('21/07/2010', 'DD/MM/YYYY'),
-    3
-);
-
-INSERT INTO clube (
-    id,
-    nome,
-    data_fundacao,
-    id_presidente
-) VALUES (
-    30,
-    'Clube da Luta',
-    TO_DATE('03/08/1977', 'DD/MM/YYYY'),
-    2
-);
-
-INSERT INTO clube (
-    id,
-    nome,
-    data_fundacao,
-    id_presidente
-) VALUES (
-    40,
-    'Santos',
-    TO_DATE('04/09/1921', 'DD/MM/YYYY'),
-    NULL
-);
-
-INSERT INTO atleta (
-    id,
-    nome,
-    cpf,
-    sexo,
-    datanasc,
-    endereco,
-    salario,
-    id_clube
-) VALUES (
-    1,
-    'Jade Barbosa',
-    '112.356.757-34',
-    'F',
-    TO_DATE('27/10/1990', 'DD/MM/YYYY'),
-    'Rua das Artes, 132',
-    10500,
-    NULL
-);
-
-INSERT INTO atleta (
-    id,
-    nome,
-    cpf,
-    sexo,
-    datanasc,
-    endereco,
-    salario,
-    id_clube
-) VALUES (
-    2,
-    'Gustavo Borges',
-    '231.423.547-11',
-    'M',
-    TO_DATE('10/05/1985', 'DD/MM/YYYY'),
-    'Rua das Águas, 365',
-    48300.55,
-    NULL
-);
-
-INSERT INTO atleta (
-    id,
-    nome,
-    cpf,
-    sexo,
-    datanasc,
-    endereco,
-    salario,
-    id_clube
-) VALUES (
-    3,
-    'Anderson Silva',
-    '358.967.111-21',
-    'M',
-    TO_DATE('1982-02-15', 'YYYY-MM-DD'),
-    'Av. Spider, 12',
-    7200.50,
-    30
-);
-
-INSERT INTO atleta (
-    id,
-    nome,
-    cpf,
-    sexo,
-    datanasc,
-    endereco,
-    salario,
-    id_clube
-) VALUES (
-    4,
-    'Marta',
-    '987.654.321-00',
-    'F',
-    TO_DATE('1988-07-07', 'YYYY-MM-DD'),
-    'Rua da Bola, 1437',
-    125000,
-    40
-);
-
-/* Atualiza dados na tabela. */
-
-UPDATE atleta
-SET
-    id_clube = 10
-WHERE
-    nome = 'Jade Barbosa';
-
-UPDATE atleta
-SET
-    id_clube = 20
-WHERE
-    nome = 'Gustavo Borges';
-    
 /*  
     Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
     Restrict evita a eliminação de uma tupla referenciada.
@@ -419,571 +233,6 @@ ALTER TABLE atleta
     ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
         REFERENCES clube ( id )
             ON DELETE CASCADE;
-
-UPDATE clube
-SET
-    id_presidente = NULL
-WHERE
-    id_presidente = 1;
-
-DELETE FROM presidente
-WHERE
-    nome = 'Godofredo Silva';
-
-/* Recupera todas as colunas e os registros da tabela atleta: */
-
-/* SELECT
-    "A1"."ID"       "ID",
-    "A1"."CPF"      "CPF",
-    "A1"."NOME"     "NOME",
-    "A1"."SEXO"     "SEXO",
-    "A1"."DATANASC" "DATANASC",
-    "A1"."ENDERECO" "ENDERECO",
-    "A1"."SALARIO"  "SALARIO",
-    "A1"."ID_CLUBE" "ID_CLUBE"
-FROM
-    "SYSTEM"."ATLETA" "A1";
-*/
-
-SELECT
-    id,
-    cpf,
-    nome,
-    sexo,
-    datanasc,
-    endereco,
-    salario,
-    id_clube
-FROM
-    atleta;
-    
-/* Recupera o id, data de nascimento, endereço e salário dos atletas: */
-
-/*
-SELECT
-    "A1"."ID"       "ID",
-    "A1"."DATANASC" "DATANASC",
-    "A1"."ENDERECO" "ENDERECO",
-    "A1"."SALARIO"  "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1";
-*/
-
-SELECT
-    id,
-    datanasc,
-    endereco,
-    salario
-FROM
-    atleta;
-    
-/* Recupera o id, nome e id do presidente dos clubes, exibindo os títulos das colunas como ID_CLUBE, NOME_CLUBE e PRESIDENTE: */
-
-/*
-SELECT
-    "A1"."ID"            "ID_CLUBE",
-    "A1"."NOME"          "NOME_CLUBE",
-    "A1"."ID_PRESIDENTE" "PRESIDENTE"
-FROM
-    "SYSTEM"."CLUBE" "A1";
-*/
-SELECT
-    id            AS "ID_CLUBE",
-    nome          AS "NOME_CLUBE",
-    id_presidente AS "PRESIDENTE"
-FROM
-    clube;
-
-/* Recupera o nome e o salário dos atletas cujos nomes comecem com a letra "J". */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."NOME" LIKE 'J%';
-*/
-
-SELECT
-    nome,
-    salario
-FROM
-    atleta
-WHERE
-    nome LIKE 'J%';
-    
-/* Recupera o nome e o sexo dos atletas cuja penúltima letra do nome seja "t": */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."NOME" LIKE '%t_';
-*/
-
-SELECT
-    nome,
-    sexo
-FROM
-    atleta
-WHERE
-    nome LIKE '%t_';
-    
-/* Recupera o nome e o salário dos atletas que ganhem entre 5000 e 250000: */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."SALARIO" BETWEEN 5000 AND 250000;
-*/
-
-SELECT
-    nome,
-    salario
-FROM
-    atleta
-WHERE
-    salario BETWEEN 5000 AND 250000;
-    
-/* Recupera CPF e nome dos atletas que não possuem clube e ordena a lista alfabeticamente: */
-
-SELECT
-    cpf,
-    nome
-FROM
-    atleta
-WHERE
-    atleta.id_clube IS NULL
-ORDER BY
-    nome;
-    
-/* Recupera id, nome, e salário de atletas que ganham menos que 10000. Ordena o resultado do maior para o menor salário. */
-
-SELECT
-    id,
-    nome,
-    salario
-FROM
-    atleta
-WHERE
-    salario < 10000
-ORDER BY
-    salario DESC;
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    1,
-    '785-45-5286',
-    'Tamera Bravington',
-    'tbravington0@studiopress.com',
-    '367-956-3178'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    3,
-    '261-92-1249',
-    'Murdock Evesque',
-    'mevesque2@merriam-webster.com',
-    '320-493-9072'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    4,
-    '167-95-8399',
-    'Sharai Jahncke',
-    'sjahncke3@wordpress.org',
-    '907-590-0532'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    5,
-    '150-79-1794',
-    'Uta Guillond',
-    'uguillond4@odnoklassniki.ru',
-    '426-617-7731'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    6,
-    '727-49-8657',
-    'Casi Bilborough',
-    'cbilborough5@youku.com',
-    '445-135-1562'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    7,
-    '296-08-8396',
-    'Delila Inkpen',
-    'dinkpen6@creativecommons.org',
-    '780-365-0148'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    8,
-    '161-20-9079',
-    'Diana Leamon',
-    'dleamon7@360.cn',
-    '229-312-6061'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    9,
-    '672-60-6443',
-    'Conrado Dumbare',
-    'cdumbare8@nsw.gov.au',
-    '615-551-0726'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    10,
-    '706-68-9424',
-    'Hilary Manilow',
-    'hmanilow9@nymag.com',
-    '992-959-5363'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    11,
-    '749-67-5859',
-    'Coop Coslett',
-    'ccosletta@jimdo.com',
-    '298-186-9432'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    12,
-    '869-37-7117',
-    'Ursola Brownhill',
-    'ubrownhillb@whitehouse.gov',
-    '311-276-9951'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    13,
-    '600-92-1234',
-    'Loise Farrand',
-    'lfarrandc@fastcompany.com',
-    '407-452-7376'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    14,
-    '738-74-2426',
-    'Cash Dubock',
-    'cdubockd@w3.org',
-    '833-696-6152'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    15,
-    '800-64-7952',
-    'Ermanno Tremblett',
-    'etremblette@hatena.ne.jp',
-    '182-481-9114'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    16,
-    '417-01-9088',
-    'Sherlock Laxtonne',
-    'slaxtonnef@google.es',
-    '533-285-4276'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    17,
-    '875-11-9904',
-    'Elvira Gerry',
-    'egerryg@webmd.com',
-    '761-323-5782'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    18,
-    '286-95-6512',
-    'Chelsey Swatland',
-    'cswatlandh@flavors.me',
-    '636-503-9898'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    19,
-    '211-93-3474',
-    'Ainsley Choppin',
-    'achoppini@jiathis.com',
-    '493-555-8065'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    20,
-    '488-96-9333',
-    'Moreen Abdee',
-    'mabdeej@loc.gov',
-    '502-474-3238'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    21,
-    '641-03-9023',
-    'Carlin Hamper',
-    'champerk@tinypic.com',
-    '530-138-7253'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    22,
-    '612-83-3180',
-    'Shantee Jouhning',
-    'sjouhningl@topsy.com',
-    '889-807-8646'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    23,
-    '454-70-4908',
-    'Dionysus Fazzioli',
-    'dfazziolim@netlog.com',
-    '545-870-5186'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    24,
-    '821-98-6400',
-    'Kristyn Ormesher',
-    'kormeshern@oaic.gov.au',
-    '111-146-0515'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    25,
-    '786-87-1352',
-    'Analiese Parsand',
-    'aparsando@biglobe.ne.jp',
-    '865-996-7431'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    26,
-    '404-63-8997',
-    'Prissie Cunningham',
-    'pcunninghamp@g.co',
-    '662-906-6610'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    27,
-    '219-35-2949',
-    'Sancho Belford',
-    'sbelfordq@unesco.org',
-    '748-551-7883'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    28,
-    '570-56-9819',
-    'Newton Iacomi',
-    'niacomir@ftc.gov',
-    '510-573-3936'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    29,
-    '331-09-4646',
-    'Frances Carslaw',
-    'fcarslaws@soup.io',
-    '547-390-0108'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    30,
-    '617-42-7162',
-    'Nina Budden',
-    'nbuddent@state.gov',
-    '108-605-5951'
-);
 
 INSERT INTO presidente (
     id,
@@ -8109,3 +7358,152 @@ FROM
     dual;
 
 DROP SEQUENCE clube_seq;
+
+/* Recupera todas as colunas e os registros da tabela atleta: */
+
+/* SELECT
+    "A1"."ID"       "ID",
+    "A1"."CPF"      "CPF",
+    "A1"."NOME"     "NOME",
+    "A1"."SEXO"     "SEXO",
+    "A1"."DATANASC" "DATANASC",
+    "A1"."ENDERECO" "ENDERECO",
+    "A1"."SALARIO"  "SALARIO",
+    "A1"."ID_CLUBE" "ID_CLUBE"
+FROM
+    "SYSTEM"."ATLETA" "A1";
+*/
+
+SELECT
+    id,
+    cpf,
+    nome,
+    sexo,
+    datanasc,
+    endereco,
+    salario,
+    id_clube
+FROM
+    atleta;
+    
+/* Recupera o id, data de nascimento, endereço e salário dos atletas: */
+
+/*
+SELECT
+    "A1"."ID"       "ID",
+    "A1"."DATANASC" "DATANASC",
+    "A1"."ENDERECO" "ENDERECO",
+    "A1"."SALARIO"  "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1";
+*/
+
+SELECT
+    id,
+    datanasc,
+    endereco,
+    salario
+FROM
+    atleta;
+    
+/* Recupera o id, nome e id do presidente dos clubes, exibindo os títulos das colunas como ID_CLUBE, NOME_CLUBE e PRESIDENTE: */
+
+/*
+SELECT
+    "A1"."ID"            "ID_CLUBE",
+    "A1"."NOME"          "NOME_CLUBE",
+    "A1"."ID_PRESIDENTE" "PRESIDENTE"
+FROM
+    "SYSTEM"."CLUBE" "A1";
+*/
+SELECT
+    id            AS "ID_CLUBE",
+    nome          AS "NOME_CLUBE",
+    id_presidente AS "PRESIDENTE"
+FROM
+    clube;
+
+/* Recupera o nome e o salário dos atletas cujos nomes comecem com a letra "J". */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."NOME" LIKE 'J%';
+*/
+
+SELECT
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    nome LIKE 'J%';
+    
+/* Recupera o nome e o sexo dos atletas cuja penúltima letra do nome seja "t": */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."NOME" LIKE '%t_';
+*/
+
+SELECT
+    nome,
+    sexo
+FROM
+    atleta
+WHERE
+    nome LIKE '%t_';
+    
+/* Recupera o nome e o salário dos atletas que ganhem entre 5000 e 250000: */
+
+/*
+SELECT
+    "A1"."NOME"    "NOME",
+    "A1"."SALARIO" "SALARIO"
+FROM
+    "SYSTEM"."ATLETA" "A1"
+WHERE
+    "A1"."SALARIO" BETWEEN 5000 AND 250000;
+*/
+
+SELECT
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    salario BETWEEN 5000 AND 250000;
+    
+/* Recupera CPF e nome dos atletas que não possuem clube e ordena a lista alfabeticamente: */
+
+SELECT
+    cpf,
+    nome
+FROM
+    atleta
+WHERE
+    atleta.id_clube IS NULL
+ORDER BY
+    nome;
+    
+/* Recupera id, nome, e salário de atletas que ganham menos que 10000. Ordena o resultado do maior para o menor salário. */
+
+SELECT
+    id,
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    salario < 10000
+ORDER BY
+    salario DESC;
