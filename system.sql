@@ -7620,7 +7620,7 @@ SELECT
 FROM
     atleta;
     
-/*  A função decode é uma estrutura similar ao CASE, mas mais econômica em texto. 
+/*  A função decode é uma estrutura similar ao case, mas mais econômica em texto. 
     É utilizada apenas em comparações com igualdade. */
 
 SELECT
@@ -7727,3 +7727,50 @@ GROUP BY
     id_clube
 ORDER BY
     id_clube;
+    
+SELECT
+    id_clube,
+    sexo,
+    round(AVG(salario), 2) AS media
+FROM
+    atleta
+GROUP BY
+    id_clube,
+    sexo
+ORDER BY
+    id_clube;
+    
+/*  A cláusula having deve envolver função de agrupamento.
+    Para filtrar registros, where deve ser utilizada. */
+    
+SELECT
+    id_clube,
+    SUM(salario)
+FROM
+    atleta
+GROUP BY
+    id_clube
+HAVING
+    SUM(salario) > 200000;
+    
+SELECT
+    COUNT(*)
+FROM
+    centro_treinamento;
+
+SELECT
+    id_clube,
+    COUNT(*)
+FROM
+    centro_treinamento
+GROUP BY
+    id_clube;
+
+SELECT
+    id_clube
+FROM
+    centro_treinamento
+GROUP BY
+    id_clube
+HAVING
+    COUNT(*) = 1;
