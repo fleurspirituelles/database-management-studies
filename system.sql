@@ -7705,7 +7705,7 @@ FROM
     atleta
 GROUP BY
     sexo;
-    
+
 SELECT
     id_clube,
     SUM(salario)
@@ -7715,7 +7715,7 @@ GROUP BY
     id_clube
 ORDER BY
     id_clube;
-    
+
 SELECT
     id_clube,
     SUM(salario)
@@ -7727,7 +7727,7 @@ GROUP BY
     id_clube
 ORDER BY
     id_clube;
-    
+
 SELECT
     id_clube,
     sexo,
@@ -7742,7 +7742,7 @@ ORDER BY
     
 /*  A cláusula having deve envolver função de agrupamento.
     Para filtrar registros, where deve ser utilizada. */
-    
+
 SELECT
     id_clube,
     SUM(salario)
@@ -7752,7 +7752,7 @@ GROUP BY
     id_clube
 HAVING
     SUM(salario) > 200000;
-    
+
 SELECT
     COUNT(*)
 FROM
@@ -7774,3 +7774,41 @@ GROUP BY
     id_clube
 HAVING
     COUNT(*) = 1;
+    
+/*  Lista o valor total de premiação distribuída no campeonato de id 19. */
+
+SELECT
+    id_campeonato,
+    SUM(valor_premiacao) AS valor_total
+FROM
+    participa
+WHERE
+    id_campeonato = 19
+GROUP BY
+    id_campeonato;
+
+/*  Lista a média de valor de premiação por campeonato para os campeonatos 2, 8, e 14.
+    Arredonda para exibir com 1 casa decimal. */
+
+SELECT
+    id_campeonato,
+    AVG(valor_premiacao) AS media_premiacao
+FROM
+    participa
+WHERE
+    id_campeonato IN ( 2, 8, 14 )
+GROUP BY
+    id_campeonato;
+
+/*  Encontra a quantidade de atletas que pratica cada modalidade esportiva. */
+
+/*  Para cada modalidade esportiva praticada, lista o maior e o menor tempo de expriência.
+    Ordena os resultados por id de modalidade. */
+
+/*  Lista o id do campeonato e a quantidade de atletas que participaram deles, exibindo somente os campeonatos com mais de 3 participantes.
+    Ordena os resultados por quantidade de participantes decrescentemente. */
+    
+/*  Lista a média de colocação dos atletas participantes de campeonatos, exibindo o número de registro do atleta e sua colocação media truncada sem casas decimais.
+    Descarta as tuplas em que não houve valor de premiação.
+    Deixa na listagem apenas os atletas com colocação média até o décimo lugar.
+    Ordena os resultados por colocação média. */
