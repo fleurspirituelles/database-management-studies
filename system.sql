@@ -553,6 +553,31 @@ FROM
     atleta
 WHERE
     salario BETWEEN 5000 AND 250000;
+    
+/* Recupera CPF e nome dos atletas que não possuem clube e ordena a lista alfabeticamente: */
+
+SELECT
+    cpf,
+    nome
+FROM
+    atleta
+WHERE
+    atleta.id_clube IS NULL
+ORDER BY
+    nome;
+    
+/* Recupera id, nome, e salário de atletas que ganham menos que 10000. Ordena o resultado do maior para o menor salário. */
+
+SELECT
+    id,
+    nome,
+    salario
+FROM
+    atleta
+WHERE
+    salario < 10000
+ORDER BY
+    salario;
 
 INSERT INTO presidente (
     id,
