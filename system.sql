@@ -8053,3 +8053,48 @@ INSERT INTO centro_treinamento (
     'Dallas',
     'TX'
 );
+
+/* Uma sequence pode automaticamente gerar números únicos.
+É um objeto compartilhável (pode ser utilizado em várias tabelas).
+Pode ser utilizado para criar valores em chaves primárias.
+Permite especificar valores de incremento, início, máximo e mínimo, se é cíclica, e quantos valores são pré-alocados e armazenados em cache.
+*/
+
+CREATE SEQUENCE clube_seq INCREMENT BY 10 START WITH 100 MAXVALUE 9999 NOCACHE NOCYCLE;
+
+INSERT INTO clube (
+    id,
+    nome
+) VALUES (
+    clube_seq.NEXTVAL,
+    'Tabajara'
+);
+
+SELECT
+    clube_seq.CURRVAL
+FROM
+    dual;
+
+SELECT
+    *
+FROM
+    clube;
+
+ALTER SEQUENCE clube_seq INCREMENT BY 40;
+
+INSERT INTO modalidade (
+    id,
+    descricao,
+    olimpica
+) VALUES (
+    clube_seq.NEXTVAL,
+    'Skating',
+    'N'
+);
+
+SELECT
+    clube_seq.CURRVAL
+FROM
+    dual;
+
+DROP SEQUENCE clube_seq;
