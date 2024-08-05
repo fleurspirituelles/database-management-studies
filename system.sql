@@ -7649,3 +7649,20 @@ FROM
     participa
 WHERE
     id_campeonato IN ( 7, 10 );
+
+SELECT
+    upper(nome),
+    datanasc,
+    CASE
+        WHEN datanasc < TO_DATE('01/01/1990', 'dd/mm/yyyy') THEN
+            5000
+        WHEN datanasc < TO_DATE('01/01/2000', 'dd/mm/yyyy') THEN
+            3000
+        ELSE
+            0
+    END             AS bonus,
+    endereco,
+    decode(substr(endereco, - 6), 'Avenue', 'Avenida', 'Street', 'Rua',
+           'Outro') AS tipo_endereco
+FROM
+    atleta;
