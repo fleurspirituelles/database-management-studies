@@ -577,7 +577,7 @@ FROM
 WHERE
     salario < 10000
 ORDER BY
-    salario;
+    salario DESC;
 
 INSERT INTO presidente (
     id,
@@ -591,20 +591,6 @@ INSERT INTO presidente (
     'Tamera Bravington',
     'tbravington0@studiopress.com',
     '367-956-3178'
-);
-
-INSERT INTO presidente (
-    id,
-    cpf,
-    nome,
-    email,
-    telefone
-) VALUES (
-    2,
-    '289-05-0419',
-    'Billie Dargavel',
-    'bdargavel1@clickbank.net',
-    '995-722-9098'
 );
 
 INSERT INTO presidente (
