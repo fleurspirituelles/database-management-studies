@@ -7802,7 +7802,7 @@ GROUP BY
 
 /*  Encontra a quantidade de atletas que pratica cada modalidade esportiva. */
 
-/*  Para cada modalidade esportiva praticada, lista o maior e o menor tempo de expriência.
+/*  Para cada modalidade esportiva praticada, lista o maior e o menor tempo de experiência.
     Ordena os resultados por id de modalidade. */
 
 /*  Lista o id do campeonato e a quantidade de atletas que participaram deles, exibindo somente os campeonatos com mais de 3 participantes.
