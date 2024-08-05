@@ -7666,3 +7666,64 @@ SELECT
            'Outro') AS tipo_endereco
 FROM
     atleta;
+    
+/*  Funções de agregação incluem:
+    - max (valor máximo),
+    - min (valor mínimo),
+    - avg (valor médio),
+    - sum (soma de todos os valores),
+    - count (número total de valores). */
+
+SELECT
+    MAX(salario),
+    MIN(salario),
+    AVG(salario),
+    SUM(salario),
+    COUNT(*)
+FROM
+    atleta;
+    
+/*  A função count(coluna) mostra o total de valores não nulos da coluna.
+    A função count(*) mmostra o total de linhas do resultado. */
+
+SELECT
+    COUNT(*)
+FROM
+    clube;
+
+SELECT
+    COUNT(id_clube)
+FROM
+    atleta;
+
+/* A função group by exibe a contagem por coluna. */
+
+SELECT
+    sexo,
+    COUNT(*)
+FROM
+    atleta
+GROUP BY
+    sexo;
+    
+SELECT
+    id_clube,
+    SUM(salario)
+FROM
+    atleta
+GROUP BY
+    id_clube
+ORDER BY
+    id_clube;
+    
+SELECT
+    id_clube,
+    SUM(salario)
+FROM
+    atleta
+WHERE
+    id_clube IN ( 12, 15, 24 )
+GROUP BY
+    id_clube
+ORDER BY
+    id_clube;
