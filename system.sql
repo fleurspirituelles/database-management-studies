@@ -7812,3 +7812,9 @@ GROUP BY
     Descarta as tuplas em que não houve valor de premiação.
     Deixa na listagem apenas os atletas com colocação média até o décimo lugar.
     Ordena os resultados por colocação média. */
+    
+CREATE USER snoopy IDENTIFIED BY snoopy;
+
+GRANT
+    CREATE SESSION
+TO snoopy;
