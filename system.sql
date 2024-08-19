@@ -7911,3 +7911,23 @@ GRANT SELECT, INSERT ON snoopy.v_teste_priv TO PUBLIC;
 GRANT SELECT ON snoopy.teste_id_seq TO woodstock;
 
 REVOKE SELECT, INSERT ON woodstock.clube FROM snoopy;
+
+/* Crie um usuário chamado user01, colocando a senha user01. */
+
+CREATE USER user01 IDENTIFIED BY user01;
+
+/* Trave a conta do usuário user01. Tente conectar como user01. */
+
+ALTER USER user01
+    ACCOUNT LOCK;
+    
+/* Destrave a conta do usuário user01. Tente conectar como user01. */
+
+ALTER USER user01
+    ACCOUNT UNLOCK;
+    
+/* Conceda o privilégio que permite ao user01 conectar-se no banco. */
+
+GRANT
+    CREATE SESSION
+TO user01;
