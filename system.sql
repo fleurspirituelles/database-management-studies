@@ -7912,6 +7912,60 @@ GRANT SELECT ON snoopy.teste_id_seq TO woodstock;
 
 REVOKE SELECT, INSERT ON woodstock.clube FROM snoopy;
 
+SELECT
+    object_name,
+    object_type,
+    created,
+    status
+FROM
+    user_objects
+ORDER BY
+    object_type;
+
+SELECT
+    table_name
+FROM
+    user_tables;
+
+DESCRIBE user_tab_columns;
+
+DESCRIBE user_constraints;
+
+SELECT
+    constraint_name,
+    constraint_type,
+    search_condition,
+    r_constraint_name,
+    delete_rule,
+    status
+FROM
+    user_constraints
+WHERE
+    table_name = 'ATLETA';
+
+DESCRIBE user_cons_columns;
+
+SELECT
+    constraint_name,
+    column_name
+FROM
+    user_cons_columns
+WHERE
+    table_name = 'ATLETA';
+
+DESCRIBE user_views;
+
+SELECT DISTINCT view_name FROM user_views;
+
+SELECT
+    sequence_name,
+    min_value,
+    max_value,
+    increment_by,
+    last_number
+FROM
+    user_sequences;
+
 /* Crie um usuário chamado user01, colocando a senha user01. */
 
 CREATE USER user01 IDENTIFIED BY user01;
