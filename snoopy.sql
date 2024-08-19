@@ -33,3 +33,5 @@ INSERT INTO woodstock.teste_priv2 VALUES (
     5,
     'x'
 );
+
+GRANT SELECT, INSERT ON woodstock.clube TO garfield;

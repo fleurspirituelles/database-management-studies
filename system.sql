@@ -7894,11 +7894,20 @@ ALTER USER woodstock
 
 ALTER USER woodstock
     ACCOUNT UNLOCK;
-    
+
 GRANT INSERT, SELECT ON woodstock.teste_priv2 TO snoopy;
 
 GRANT SELECT, INSERT ON woodstock.atleta TO snoopy;
 
 GRANT UPDATE ( nome,
                salario ) ON woodstock.atleta TO snoopy, developer;
-               
+
+GRANT SELECT, INSERT ON woodstock.clube TO snoopy WITH GRANT OPTION;
+
+GRANT SELECT ON woodstock.presidente TO PUBLIC;
+
+GRANT SELECT, INSERT ON snoopy.v_teste_priv TO PUBLIC;
+
+GRANT SELECT ON snoopy.teste_id_seq TO woodstock;
+
+REVOKE SELECT, INSERT ON woodstock.clube FROM snoopy;
