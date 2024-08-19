@@ -7822,3 +7822,10 @@ TO snoopy;
 GRANT
     CREATE TABLE
 TO snoopy;
+
+ALTER USER snoopy
+    QUOTA UNLIMITED ON users;
+    
+GRANT
+    CREATE SEQUENCE
+TO snoopy;
