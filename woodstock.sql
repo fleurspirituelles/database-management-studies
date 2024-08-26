@@ -7416,3 +7416,90 @@ FROM
     woodstock.atleta
 WHERE
     nome = 'Lambert Taffs';
+
+CREATE TABLE emp_temp (
+    cod  NUMBER(2) NOT NULL,
+    nome VARCHAR2(20) NOT NULL,
+    sal  NUMBER(6, 2) NOT NULL,
+    CONSTRAINT emp_pk PRIMARY KEY ( cod )
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON woodstock.emp_temp TO snoopy;
+
+INSERT INTO emp_temp (
+    cod,
+    nome,
+    sal
+) VALUES (
+    1,
+    'Mía Colucci',
+    2500
+);
+
+INSERT INTO emp_temp (
+    cod,
+    nome,
+    sal
+) VALUES (
+    2,
+    'Guadalupe Fernández',
+    2500
+);
+
+COMMIT;
+
+INSERT INTO emp_temp (
+    cod,
+    nome,
+    sal
+) VALUES (
+    3,
+    'Diego Bustamante',
+    2500
+);
+
+INSERT INTO emp_temp (
+    cod,
+    nome,
+    sal
+) VALUES (
+    4,
+    'Giovanni López',
+    2500
+);
+
+COMMIT;
+
+CREATE TABLE dep_temp (
+    cod  NUMBER(2) NOT NULL,
+    nome VARCHAR2(20) NOT NULL,
+    CONSTRAINT dep_pk PRIMARY KEY ( cod )
+);
+
+UPDATE woodstock.emp_temp
+SET
+    sal = 5000
+WHERE
+    nome = 'Mía Colucci';
+
+ROLLBACK;
+
+SELECT
+    *
+FROM
+    woodstock.emp_temp
+WHERE
+    nome = 'Mía Colucci';
+
+SELECT
+    *
+FROM
+    woodstock.emp_temp;
+
+UPDATE woodstock.emp_temp
+SET
+    sal = 5000
+WHERE
+    nome = 'Guadalupe Fernández';
+
+ROLLBACK;

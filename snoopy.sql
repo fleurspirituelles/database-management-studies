@@ -66,3 +66,50 @@ WHERE
     nome = 'Lambert Taffs';
 
 COMMIT;
+
+DESC woodstock.emp_temp;
+
+SELECT
+    *
+FROM
+    woodstock.emp_temp;
+
+DESC woodstock.dep_temp;
+
+SELECT
+    *
+FROM
+    woodstock.emp_temp
+WHERE
+    nome = 'Mía Colucci';
+
+SAVEPOINT sp1;
+
+DELETE FROM woodstock.emp_temp
+WHERE
+    nome = 'Giovanni López';
+
+SAVEPOINT sp2;
+
+DELETE FROM woodstock.emp_temp
+WHERE
+    nome = 'Diego Bustamante';
+
+SELECT
+    *
+FROM
+    woodstock.emp_temp;
+
+ROLLBACK;
+
+ROLLBACK TO sp2;
+
+COMMIT;
+
+UPDATE woodstock.emp_temp
+SET
+    sal = 5500
+WHERE
+    nome = 'Guadalupe Fernández';
+
+COMMIT;
