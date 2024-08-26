@@ -35,3 +35,34 @@ INSERT INTO woodstock.teste_priv2 VALUES (
 );
 
 GRANT SELECT, INSERT ON woodstock.clube TO garfield;
+
+SELECT
+    id,
+    nome,
+    salario
+FROM
+    woodstock.atleta
+WHERE
+    nome LIKE 'Miquela Malloy';
+
+SELECT
+    *
+FROM
+    woodstock.atleta
+WHERE
+    id = 199;
+
+SELECT
+    salario
+FROM
+    woodstock.atleta
+WHERE
+    nome = 'Lambert Taffs';
+
+UPDATE woodstock.atleta
+SET
+    salario = 9000
+WHERE
+    nome = 'Lambert Taffs';
+
+COMMIT;

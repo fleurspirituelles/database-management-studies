@@ -7955,7 +7955,10 @@ WHERE
 
 DESCRIBE user_views;
 
-SELECT DISTINCT view_name FROM user_views;
+SELECT DISTINCT
+    view_name
+FROM
+    user_views;
 
 SELECT
     sequence_name,

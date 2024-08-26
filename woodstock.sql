@@ -7313,3 +7313,106 @@ INSERT INTO centro_treinamento (
     'Dallas',
     'TX'
 );
+
+UPDATE woodstock.atleta
+SET
+    salario = 8000
+WHERE
+    nome = 'Miquela Malloy';
+
+INSERT INTO atleta (
+    id,
+    nome,
+    cpf,
+    salario
+) VALUES (
+    199,
+    'Rebeca Andrade',
+    '888-77-5555',
+    2500
+);
+
+COMMIT;
+
+UPDATE woodstock.atleta
+SET
+    salario = 4000
+WHERE
+    id = 199;
+
+GRANT SELECT ON clube TO snoopy;
+
+/* Apesar de não ter utilizado o comando commit, o comando grant realiza o commit de forma indireta. */
+
+UPDATE atleta
+SET
+    salario = 98000
+WHERE
+    nome = 'Rebeca Andrade';
+
+ROLLBACK;
+
+SELECT
+    salario
+FROM
+    atleta
+WHERE
+    nome = 'Rebeca Andrade';
+
+UPDATE atleta
+SET
+    salario = 7200
+WHERE
+    nome = 'Oren Peers';
+
+UPDATE atleta
+SET
+    salario = 3800
+WHERE
+    nome = 'Johna Belf';
+
+SELECT
+    *
+FROM
+    atleta
+WHERE
+    nome IN ( 'Oren Peers', 'Johna Belf' );
+
+SAVEPOINT atualiza;
+
+UPDATE atleta
+SET
+    salario = 100000
+WHERE
+    nome = 'Rebeca Andrade';
+
+SELECT
+    *
+FROM
+    atleta
+WHERE
+    nome = 'Rebeca Andrade';
+
+ROLLBACK TO atualiza;
+
+SELECT
+    *
+FROM
+    atleta
+WHERE
+    nome = 'Rebeca Andrade';
+
+UPDATE atleta
+SET
+    salario = 7300
+WHERE
+    nome = 'Lambert Taffs';
+
+COMMIT;
+
+SELECT
+    salario
+FROM
+    woodstock.atleta
+WHERE
+    nome = 'Lambert Taffs';
