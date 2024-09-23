@@ -7393,3 +7393,26 @@ BEGIN
         dbms_output.put_line(v_contador);
     END LOOP;
 END;
+
+DECLARE
+    v_nome      clube.nome%TYPE;
+    v_data_fund clube.data_fundacao%TYPE;
+BEGIN
+    SELECT
+        nome,
+        data_fundacao
+    INTO
+        v_nome,
+        v_data_fund
+    FROM
+        clube
+    WHERE
+        id = 1;
+
+    dbms_output.put_line('Id: 1'
+                         || ', Nome: '
+                         || v_nome
+                         || ', Data de fundação: '
+                         || to_char(v_data_fund, 'DD/MM/YYYY'));
+
+END;
