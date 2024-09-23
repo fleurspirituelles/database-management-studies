@@ -7416,3 +7416,28 @@ BEGIN
                          || to_char(v_data_fund, 'DD/MM/YYYY'));
 
 END;
+
+UNDEFINE v_id;
+
+DECLARE
+    v_nome      clube.nome%TYPE;
+    v_data_fund clube.data_fundacao%TYPE;
+    v_id        clube.id%TYPE;
+BEGIN
+    SELECT
+        nome,
+        data_fundacao
+    INTO
+        v_nome,
+        v_data_fund
+    FROM
+        clube
+    WHERE
+        id = &v_id;
+
+    dbms_output.put_line('Nome: '
+                         || v_nome
+                         || ', Data de fundação: '
+                         || to_char(v_data_fund, 'DD/MM/YYYY'));
+
+END;
