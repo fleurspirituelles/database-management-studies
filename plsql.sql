@@ -7249,12 +7249,6 @@ INSERT INTO centro_treinamento (
     'TX'
 );
 
-/*  Uma sequence pode automaticamente gerar n?meros ?nicos.
-    ? um objeto compartilh?vel (pode ser utilizado em v?rias tabelas).
-    Pode ser utilizado para criar valores em chaves prim?rias.
-    Permite especificar valores de incremento, in?cio, m?ximo e m?nimo, se ? c?clica, e quantos valores s?o pr?-alocados e armazenados em cache.
-*/
-
 CREATE SEQUENCE clube_seq INCREMENT BY 10 START WITH 100 MAXVALUE 9999 NOCACHE NOCYCLE;
 
 INSERT INTO clube (
@@ -7304,14 +7298,14 @@ DECLARE
     v_message VARCHAR(30);
 BEGIN
     IF v_saldo > 0 THEN
-        v_message := 'Saldo positivo';
+        v_message := 'Saldo positivo!';
         IF v_limite > 0 THEN
-            v_message := 'Saldo e limite positivos';
+            v_message := 'Saldo e limite positivos!';
         END IF;
     ELSIF v_saldo = 0 THEN
-        v_message := 'Saldo zero';
+        v_message := 'Saldo zero.';
     ELSE
-        v_message := 'Saldo negativo';
+        v_message := 'Saldo negativo.';
     END IF;
 
     dbms_output.put_line(v_message);
@@ -7323,13 +7317,13 @@ DECLARE
 BEGIN
     CASE estado_civil
         WHEN 'C' THEN
-            v_estcivil := 'Casada';
+            v_estcivil := 'Casada.';
         WHEN 'S' THEN
-            v_estcivil := 'Solteira';
+            v_estcivil := 'Solteira.';
         WHEN 'D' THEN
-            v_estcivil := 'Divorciada';
+            v_estcivil := 'Divorciada.';
         ELSE
-            v_estcivil := 'Não informado';
+            v_estcivil := 'Não informado.';
     END CASE;
 
     dbms_output.put_line('Estado civil: ' || v_estcivil);
@@ -7409,10 +7403,10 @@ BEGIN
     WHERE
         id = 1;
 
-    dbms_output.put_line('Id: 1'
-                         || ', Nome: '
+    dbms_output.put_line('ID: 1'
+                         || ', nome: '
                          || v_nome
-                         || ', Data de fundação: '
+                         || ', data de fundação: '
                          || to_char(v_data_fund, 'DD/MM/YYYY'));
 
 END;
@@ -7437,7 +7431,7 @@ BEGIN
 
     dbms_output.put_line('Nome: '
                          || v_nome
-                         || ', Data de fundação: '
+                         || ', data de fundação: '
                          || to_char(v_data_fund, 'DD/MM/YYYY'));
 
 END;
@@ -7492,9 +7486,9 @@ BEGIN
     v_idade := trunc((sysdate - v_datanasc) / 365);
     dbms_output.put_line('Nome: '
                          || v_nome
-                         || ', Data Nasc: '
+                         || ', data de nascimento: '
                          || v_datanasc
-                         || ', Idade = '
+                         || ', idade: '
                          || v_idade
                          || ', sexo: '
                          || v_sexo);
@@ -7503,24 +7497,24 @@ BEGIN
         v_idade < 18
         AND v_sexo = 'M'
     THEN
-        dbms_output.put_line('Atleta masculino menor de idade');
+        dbms_output.put_line('Atleta masculino menor de idade.');
     ELSIF
         v_idade < 18
         AND v_sexo = 'F'
     THEN
-        dbms_output.put_line('Atleta feminina menor de idade');
+        dbms_output.put_line('Atleta feminina menor de idade.');
     ELSIF
         v_idade >= 18
         AND v_sexo = 'M'
     THEN
-        dbms_output.put_line('Atleta masculino maior de idade');
+        dbms_output.put_line('Atleta masculino maior de idade.');
     ELSIF
         v_idade >= 18
         AND v_sexo = 'F'
     THEN
-        dbms_output.put_line('Atleta feminina maior de idade');
+        dbms_output.put_line('Atleta feminina maior de idade.');
     ELSE
-        dbms_output.put_line('Informações desconhecidas');
+        dbms_output.put_line('Informações desconhecidas.');
     END IF;
 
 END;
@@ -7548,9 +7542,9 @@ BEGIN
     v_idade := trunc((sysdate - v_datanasc) / 365);
     dbms_output.put_line('Nome: '
                          || v_nome
-                         || ', Data Nesc: '
+                         || ', data de nascimento: '
                          || v_datanasc
-                         || ', Idade = '
+                         || ', idade: '
                          || v_idade
                          || ', sexo: '
                          || v_sexo);
@@ -7559,24 +7553,150 @@ BEGIN
         v_idade < 18
         AND v_sexo = 'M'
     THEN
-        dbms_output.put_line('Atleta masculino menor de idade');
+        dbms_output.put_line('Atleta masculino menor de idade.');
     ELSIF
         v_idade < 18
         AND v_sexo = 'F'
     THEN
-        dbms_output.put_line('Atleta feminina menor de idade');
+        dbms_output.put_line('Atleta feminina menor de idade.');
     ELSIF
         v_idade >= 18
         AND v_sexo = 'M'
     THEN
-        dbms_output.put_line('Atleta masculino maior de idade');
+        dbms_output.put_line('Atleta masculino maior de idade.');
     ELSIF
         v_idade >= 18
         AND v_sexo = 'F'
     THEN
-        dbms_output.put_line('Atleta feminina maior de idade');
+        dbms_output.put_line('Atleta feminina maior de idade.');
     ELSE
-        dbms_output.put_line('Informações desconhecidas');
+        dbms_output.put_line('Informações desconhecidas.');
     END IF;
 
+END;
+
+DECLARE
+    v_id_atleta atleta.id%TYPE;
+    v_nome      atleta.nome%TYPE;
+    v_salario   atleta.salario%TYPE;
+    CURSOR c_atleta IS
+    SELECT
+        id,
+        nome,
+        salario
+    FROM
+        atleta
+    ORDER BY
+        id;
+
+BEGIN
+    OPEN c_atleta;
+    LOOP
+        FETCH c_atleta INTO
+            v_id_atleta,
+            v_nome,
+            v_salario;
+        EXIT WHEN c_atleta%notfound;
+        dbms_output.put_line('ID: '
+                             || v_id_atleta
+                             || ', nome: '
+                             || v_nome
+                             || ', salário: '
+                             || v_salario);
+
+    END LOOP;
+
+    CLOSE c_atleta;
+END;
+
+DECLARE
+    v_atleta atleta%rowtype;
+    CURSOR c_atleta IS
+    SELECT
+        *
+    FROM
+        atleta
+    ORDER BY
+        id;
+
+BEGIN
+    OPEN c_atleta;
+    LOOP
+        FETCH c_atleta INTO v_atleta;
+        EXIT WHEN c_atleta%notfound;
+        dbms_output.put_line('ID: '
+                             || v_atleta.id
+                             || ', nome: '
+                             || v_atleta.nome
+                             || ', salário: '
+                             || v_atleta.salario);
+
+    END LOOP;
+
+    CLOSE c_atleta;
+END;
+
+DECLARE
+    v_atleta atleta%rowtype;
+    CURSOR c_atleta IS
+    SELECT
+        *
+    FROM
+        atleta
+    WHERE
+        nome = 'Royal Sallter';
+
+BEGIN
+    OPEN c_atleta;
+    LOOP
+        FETCH c_atleta INTO v_atleta;
+        EXIT WHEN c_atleta%notfound;
+        dbms_output.put_line('Nome: ' || v_atleta.nome);
+    END LOOP;
+
+    CLOSE c_atleta;
+EXCEPTION
+    WHEN no_data_found THEN
+        dbms_output.put_line('Atleta não encontrado!');
+END;
+
+DECLARE
+    v_id atleta.id%TYPE;
+BEGIN
+    SELECT
+        id
+    INTO v_id
+    FROM
+        atleta
+    WHERE
+        id = 111;
+
+    UPDATE atleta
+    SET
+        nome = 'Maria das Vitórias'
+    WHERE
+        id = 111;
+
+    COMMIT;
+    dbms_output.put_line('Atleta atualizado com sucesso!');
+EXCEPTION
+    WHEN no_data_found THEN
+        INSERT INTO atleta (
+            id,
+            nome,
+            cpf,
+            datanasc,
+            salario
+        ) VALUES (
+            111,
+            'Maria das Vitórias',
+            '777-11-3333',
+            TO_DATE('22/04/1990', 'dd/mm/yyyy'),
+            1000
+        );
+
+        COMMIT;
+        dbms_output.put_line('Atleta cadastrado com sucesso!');
+    WHEN OTHERS THEN
+        dbms_output.put_line('Erro: ' || sqlerrm);
 END;
