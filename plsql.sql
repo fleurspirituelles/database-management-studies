@@ -7441,3 +7441,142 @@ BEGIN
                          || to_char(v_data_fund, 'DD/MM/YYYY'));
 
 END;
+
+DECLARE
+    value          NUMBER := 5;
+    multiplication NUMBER := 1;
+BEGIN
+    FOR multiplication IN 1..10 LOOP
+        dbms_output.put_line(value
+                             || ' x '
+                             || multiplication
+                             || ' = '
+                             || multiplication * value);
+    END LOOP;
+END;
+
+BEGIN
+    FOR i IN 1..10 LOOP
+        dbms_output.put_line('Tabuada do ' || i);
+        FOR j IN 1..10 LOOP
+            dbms_output.put_line(j
+                                 || ' x '
+                                 || i
+                                 || ' = '
+                                 || i * j);
+        END LOOP;
+
+        dbms_output.put_line('');
+    END LOOP;
+END;
+
+DECLARE
+    v_nome     atleta.nome%TYPE;
+    v_datanasc atleta.datanasc%TYPE;
+    v_sexo     atleta.sexo%TYPE;
+    v_idade    NUMBER;
+BEGIN
+    SELECT
+        nome,
+        datanasc,
+        sexo
+    INTO
+        v_nome,
+        v_datanasc,
+        v_sexo
+    FROM
+        atleta
+    WHERE
+        id = 1;
+
+    v_idade := trunc((sysdate - v_datanasc) / 365);
+    dbms_output.put_line('Nome: '
+                         || v_nome
+                         || ', Data Nasc: '
+                         || v_datanasc
+                         || ', Idade = '
+                         || v_idade
+                         || ', sexo: '
+                         || v_sexo);
+
+    IF
+        v_idade < 18
+        AND v_sexo = 'M'
+    THEN
+        dbms_output.put_line('Atleta masculino menor de idade');
+    ELSIF
+        v_idade < 18
+        AND v_sexo = 'F'
+    THEN
+        dbms_output.put_line('Atleta feminina menor de idade');
+    ELSIF
+        v_idade >= 18
+        AND v_sexo = 'M'
+    THEN
+        dbms_output.put_line('Atleta masculino maior de idade');
+    ELSIF
+        v_idade >= 18
+        AND v_sexo = 'F'
+    THEN
+        dbms_output.put_line('Atleta feminina maior de idade');
+    ELSE
+        dbms_output.put_line('Informações desconhecidas');
+    END IF;
+
+END;
+
+DECLARE
+    v_nome     atleta.nome%TYPE;
+    v_datanasc atleta.datanasc%TYPE;
+    v_sexo     atleta.sexo%TYPE;
+    v_idade    NUMBER;
+    v_id       atleta.id%TYPE;
+BEGIN
+    SELECT
+        nome,
+        datanasc,
+        sexo
+    INTO
+        v_nome,
+        v_datanasc,
+        v_sexo
+    FROM
+        atleta
+    WHERE
+        id = &v_id;
+
+    v_idade := trunc((sysdate - v_datanasc) / 365);
+    dbms_output.put_line('Nome: '
+                         || v_nome
+                         || ', Data Nesc: '
+                         || v_datanasc
+                         || ', Idade = '
+                         || v_idade
+                         || ', sexo: '
+                         || v_sexo);
+
+    IF
+        v_idade < 18
+        AND v_sexo = 'M'
+    THEN
+        dbms_output.put_line('Atleta masculino menor de idade');
+    ELSIF
+        v_idade < 18
+        AND v_sexo = 'F'
+    THEN
+        dbms_output.put_line('Atleta feminina menor de idade');
+    ELSIF
+        v_idade >= 18
+        AND v_sexo = 'M'
+    THEN
+        dbms_output.put_line('Atleta masculino maior de idade');
+    ELSIF
+        v_idade >= 18
+        AND v_sexo = 'F'
+    THEN
+        dbms_output.put_line('Atleta feminina maior de idade');
+    ELSE
+        dbms_output.put_line('Informações desconhecidas');
+    END IF;
+
+END;
