@@ -7249,38 +7249,6 @@ INSERT INTO centro_treinamento (
     'TX'
 );
 
-CREATE SEQUENCE clube_seq INCREMENT BY 10 START WITH 100 MAXVALUE 9999 NOCACHE NOCYCLE;
-
-INSERT INTO clube (
-    id,
-    nome
-) VALUES (
-    clube_seq.NEXTVAL,
-    'Tabajara'
-);
-
-SELECT
-    clube_seq.CURRVAL
-FROM
-    dual;
-
-SELECT
-    *
-FROM
-    clube;
-
-ALTER SEQUENCE clube_seq INCREMENT BY 40;
-
-INSERT INTO modalidade (
-    id,
-    descricao,
-    olimpica
-) VALUES (
-    clube_seq.NEXTVAL,
-    'Skating',
-    'N'
-);
-
 SET SERVEROUTPUT ON
 
 DECLARE
