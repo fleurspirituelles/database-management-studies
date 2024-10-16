@@ -7258,3 +7258,22 @@ INSERT INTO centro_treinamento (
     'Dallas',
     'TX'
 );
+
+ALTER TABLE atleta ADD idade NUMBER;
+
+ALTER TABLE modalidade ADD qtde_praticantes NUMBER;
+
+UPDATE atleta
+SET
+    idade = trunc(months_between(sysdate, datanasc) / 12);
+
+UPDATE modalidade m
+SET
+    qtde_praticantes = (
+        SELECT
+            COUNT(*)
+        FROM
+            pratica
+        WHERE
+            id_modalidade = m.id
+    );
