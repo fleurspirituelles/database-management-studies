@@ -1,8 +1,4 @@
-/* A cada início de sessão: */
 ALTER SESSION SET "_ORACLE_SCRIPT" = true;
-/* Habilita a execução de scripts com permissões de sistema. */
-
-/* Limpa as tabelas quando necessário. */
 
 DROP TABLE centro_treinamento;
 
@@ -28,25 +24,6 @@ DROP TABLE clube;
 
 DROP TABLE presidente;
 
-/*  
-    Oracle possui os seguintes data types:
-    VARCHAR2(size) é um dado de caracteres de tamanho variável (1 a 4000).
-    CHAR(size) é um dado de caracteres de tamanho fixo (1 a 2000).
-    NUMBER(p,s) é um dado numérico de tamanho variável, onde p é a precisão (1 a 38) e s a escala (-84 e 127).
-    DATE é um dado que aceita valores entre 01/01/4712 AC a 31/12/9999 DC).
-    CLOB é um dado de caracteres até 4GB.
-    BLOB é um dado binário até 4GB.
-
-    PRIMARY KEY define a chave primária da tabela.
-    FOREIGN KEY define uma chave estrangeira e por meio de REFERENCES indica a tabela de quem depende.
-    CHECK verifica condições para uma coluna, as quais devem ser satisfeitas na inserção/atualização.
-    UNIQUE determina que os valores da coluna deve ser único.
-    NOT NULL indica que a coluna não aceita nulos.
-
-    Por uma questão de boa prática, é adotado um padrão de criação de nomes de constraints:
-    PK, FK, CK e UK para as constraints PRIMARY KEY, FOREIGN KEY, CHECK e UNIQUE, respectivamente.
-*/
-
 CREATE TABLE atleta (
     id       NUMBER(4) NOT NULL,
     cpf      VARCHAR2(14) NOT NULL,
@@ -60,11 +37,7 @@ CREATE TABLE atleta (
     CONSTRAINT atleta_uk UNIQUE ( cpf ),
     CONSTRAINT atleta_sexo_ck CHECK ( sexo IN ( 'M', 'F', 'm', 'f' ) ),
     CONSTRAINT atleta_salario_ck CHECK ( salario > 0 )
-    /* CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
-        REFERENCES clube ( id ) */
 );
-
-/* Como a tabela clube ainda não existe, a tabela é criada sem a foreign key referenciando clube. */
 
 CREATE TABLE presidente (
     id       NUMBER(4),
@@ -86,8 +59,6 @@ CREATE TABLE clube (
     CONSTRAINT clube_presidente_fk FOREIGN KEY ( id_presidente )
         REFERENCES presidente ( id )
 );
-
-/* Agora, com a tabela clube criada, é possível criar a constraint para atleta. */
 
 ALTER TABLE atleta
     ADD CONSTRAINT atleta_clube_fk FOREIGN KEY ( id_clube )
@@ -191,41 +162,15 @@ CREATE TABLE participa (
         REFERENCES campeonato ( id )
 );
 
-/* Descreve a estrutura básica de uma tabela, isto é, suas colunas, tipos de dados, tamanhos, e se aceitam ou não valores nulos. */
-
 DESCRIBE atleta;
 DESC atleta;
 
-/* Consulta todas as tabelas pertencentes ao usuário conectado:
-
-SELECT
-    table_name
-FROM
-    user_tables;
-
-*/
-
-/* Adiciona uma coluna em uma tabela existente. */
 ALTER TABLE atleta ADD idade DATE;
 
-/*Altera uma coluna existente. */
 ALTER TABLE atleta MODIFY
     idade NUMBER(3);
 
-/* Exclui uma coluna existente em uma tabela. */
 ALTER TABLE atleta DROP COLUMN idade;
-
-/* Utilizar sempre aspas simples. */
-/* Para formatar uma data utiliza-se a função to_date. Alguns formatos são DD/MM/YYYY, DDMMYYYY, YYYY-MM-DD. */
-
-/*  
-    Ações referenciais engatilhadas são utilizadas para nortear as ações automáticas tomadas em relação às colunas que possuem restrições de chave estrangeira, quando são executados comandos update e delete.
-    Restrict evita a eliminação de uma tupla referenciada.
-    Cascade especifica que, quando uma tupla referenciada é eliminada ou atualizada, as tuplas que a referenciam devem ser automaticamente eliminadas ou atualizadas também.
-    No action significa que se alguma tupla ainda existir quando a restrição for verificada, um erro é levantado. Difere de restrict por permitir a verificação até o final da transação.
-    Set null e set default determinam que os valores das tuplas que referenciam a coluna cujo valor foi eliminado ou atualizado serão modificados para null ou default. 
-    Porém, se set default violar a restrição de chave estrangeira, a operação falhará.
-*/
 
 ALTER TABLE atleta DROP CONSTRAINT atleta_clube_fk;
 
@@ -7314,12 +7259,6 @@ INSERT INTO centro_treinamento (
     'TX'
 );
 
-/*  Uma sequence pode automaticamente gerar números únicos.
-    É um objeto compartilhável (pode ser utilizado em várias tabelas).
-    Pode ser utilizado para criar valores em chaves primárias.
-    Permite especificar valores de incremento, início, máximo e mínimo, se é cíclica, e quantos valores são pré-alocados e armazenados em cache.
-*/
-
 CREATE SEQUENCE clube_seq INCREMENT BY 10 START WITH 100 MAXVALUE 9999 NOCACHE NOCYCLE;
 
 INSERT INTO clube (
@@ -7359,21 +7298,6 @@ FROM
 
 DROP SEQUENCE clube_seq;
 
-/* Recupera todas as colunas e os registros da tabela atleta: */
-
-/* SELECT
-    "A1"."ID"       "ID",
-    "A1"."CPF"      "CPF",
-    "A1"."NOME"     "NOME",
-    "A1"."SEXO"     "SEXO",
-    "A1"."DATANASC" "DATANASC",
-    "A1"."ENDERECO" "ENDERECO",
-    "A1"."SALARIO"  "SALARIO",
-    "A1"."ID_CLUBE" "ID_CLUBE"
-FROM
-    "SYSTEM"."ATLETA" "A1";
-*/
-
 SELECT
     id,
     cpf,
@@ -7385,18 +7309,6 @@ SELECT
     id_clube
 FROM
     atleta;
-    
-/* Recupera o id, data de nascimento, endereço e salário dos atletas: */
-
-/*
-SELECT
-    "A1"."ID"       "ID",
-    "A1"."DATANASC" "DATANASC",
-    "A1"."ENDERECO" "ENDERECO",
-    "A1"."SALARIO"  "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1";
-*/
 
 SELECT
     id,
@@ -7405,35 +7317,13 @@ SELECT
     salario
 FROM
     atleta;
-    
-/* Recupera o id, nome e id do presidente dos clubes, exibindo os títulos das colunas como ID_CLUBE, NOME_CLUBE e PRESIDENTE: */
 
-/*
-SELECT
-    "A1"."ID"            "ID_CLUBE",
-    "A1"."NOME"          "NOME_CLUBE",
-    "A1"."ID_PRESIDENTE" "PRESIDENTE"
-FROM
-    "SYSTEM"."CLUBE" "A1";
-*/
 SELECT
     id            AS "ID_CLUBE",
     nome          AS "NOME_CLUBE",
     id_presidente AS "PRESIDENTE"
 FROM
     clube;
-
-/* Recupera o nome e o salário dos atletas cujos nomes comecem com a letra "J". */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."NOME" LIKE 'J%';
-*/
 
 SELECT
     nome,
@@ -7442,18 +7332,6 @@ FROM
     atleta
 WHERE
     nome LIKE 'J%';
-    
-/* Recupera o nome e o sexo dos atletas cuja penúltima letra do nome seja "t": */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."NOME" LIKE '%t_';
-*/
 
 SELECT
     nome,
@@ -7462,18 +7340,6 @@ FROM
     atleta
 WHERE
     nome LIKE '%t_';
-    
-/* Recupera o nome e o salário dos atletas que ganhem entre 5000 e 250000: */
-
-/*
-SELECT
-    "A1"."NOME"    "NOME",
-    "A1"."SALARIO" "SALARIO"
-FROM
-    "SYSTEM"."ATLETA" "A1"
-WHERE
-    "A1"."SALARIO" BETWEEN 5000 AND 250000;
-*/
 
 SELECT
     nome,
@@ -7482,8 +7348,6 @@ FROM
     atleta
 WHERE
     salario BETWEEN 5000 AND 250000;
-    
-/* Recupera CPF e nome dos atletas que não possuem clube e ordena a lista alfabeticamente: */
 
 SELECT
     cpf,
@@ -7494,8 +7358,6 @@ WHERE
     atleta.id_clube IS NULL
 ORDER BY
     nome;
-    
-/* Recupera id, nome, e salário de atletas que ganham menos que 10000. Ordena o resultado do maior para o menor salário. */
 
 SELECT
     id,
@@ -7507,10 +7369,6 @@ WHERE
     salario < 10000
 ORDER BY
     salario DESC;
-    
-/*  A função lower converte todos os caracteres para minúsculo.
-    A função upper converte todos os caracteres para maiúsculo.
-    A função initcap converte os caracteres iniciais das palavras em maiúsculo. */
 
 SELECT
     lower(nome),
@@ -7518,23 +7376,16 @@ SELECT
     initcap(endereco)
 FROM
     atleta;
-    
-/*  A função concat concatena dois textos ou colunas.
-    Só aceita dois argumentos. Normalmente é utilizado || para concatenação, pois não possui limite de argumentos. */
 
 SELECT
     concat(nome, data_fundacao)
 FROM
     clube;
-    
-/* A função substr recupera parte de um texto ou coluna. */
 
 SELECT
     substr(nome, 1, 5)
 FROM
     atleta;
-
-/* A função length recupera o tamanho de um texto ou coluna. */
 
 SELECT
     nome,
@@ -7542,39 +7393,27 @@ SELECT
 FROM
     atleta;
 
-/*  A função round arredonda casas decimais.
-    A função trunc trunca as casas decimais. */
-
 SELECT
     nome,
     round(salario, 0),
     trunc(salario, 1)
 FROM
     atleta;
-    
-/*  A função trim remove espaços em branco do início e fim de uma string. 
-    As funções ltrim e rtrim removem espaços do início (left) e fim (right) de uma string, respectivamente. */
 
 SELECT
     TRIM(nome)
 FROM
     atleta;
 
-/* A função replace substitui as ocorrências de um ou mais caracteres por outros. */
-
 SELECT
     replace(nome, 'e', 'i')
 FROM
     clube;
 
-/* A função translate substitui as ocorrências de vários caracteres simultaneamente.*/
-
 SELECT
     translate(nome, 'aei', 'ouy')
 FROM
     clube;
-    
-/* A função nvl testa se o valor de uma coluna é nulo e aplica o tratamento informado caso seja. */
 
 SELECT
     nome,
@@ -7584,11 +7423,10 @@ FROM
 
 SELECT
     nome,
-    nvl(to_char(id_clube), 'Não possui')
+    nvl(to_char(id_clube),
+        'Não possui')
 FROM
     atleta;
-    
-/* A função case é uma estrutura condicinal. */
 
 SELECT
     nome,
@@ -7619,9 +7457,6 @@ SELECT
     END AS imposto
 FROM
     atleta;
-    
-/*  A função decode é uma estrutura similar ao case, mas mais econômica em texto. 
-    É utilizada apenas em comparações com igualdade. */
 
 SELECT
     nome,
@@ -7630,12 +7465,6 @@ SELECT
            'Não Informado')
 FROM
     atleta;
-    
-/*  Ao utilizar to_char para conversão: 
-    O formato precisa ser escrito entre aspas simples.
-    É case sensitive.
-    Pode incluir qualquer formato de data válido.
-    É separado do valor da data por vírgula. */
 
 SELECT
     nome,
@@ -7662,17 +7491,14 @@ SELECT
             0
     END             AS bonus,
     endereco,
-    decode(substr(endereco, - 6), 'Avenue', 'Avenida', 'Street', 'Rua',
+    decode(substr(endereco, - 6),
+           'Avenue',
+           'Avenida',
+           'Street',
+           'Rua',
            'Outro') AS tipo_endereco
 FROM
     atleta;
-    
-/*  Funções de agregação incluem:
-    - max (valor máximo),
-    - min (valor mínimo),
-    - avg (valor médio),
-    - sum (soma de todos os valores),
-    - count (número total de valores). */
 
 SELECT
     MAX(salario),
@@ -7682,9 +7508,6 @@ SELECT
     COUNT(*)
 FROM
     atleta;
-    
-/*  A função count(coluna) mostra o total de valores não nulos da coluna.
-    A função count(*) mmostra o total de linhas do resultado. */
 
 SELECT
     COUNT(*)
@@ -7695,8 +7518,6 @@ SELECT
     COUNT(id_clube)
 FROM
     atleta;
-
-/* A função group by exibe a contagem por coluna. */
 
 SELECT
     sexo,
@@ -7731,7 +7552,8 @@ ORDER BY
 SELECT
     id_clube,
     sexo,
-    round(AVG(salario), 2) AS media
+    round(AVG(salario),
+          2) AS media
 FROM
     atleta
 GROUP BY
@@ -7739,9 +7561,6 @@ GROUP BY
     sexo
 ORDER BY
     id_clube;
-    
-/*  A cláusula having deve envolver função de agrupamento.
-    Para filtrar registros, where deve ser utilizada. */
 
 SELECT
     id_clube,
@@ -7774,8 +7593,6 @@ GROUP BY
     id_clube
 HAVING
     COUNT(*) = 1;
-    
-/*  Lista o valor total de premiação distribuída no campeonato de id 19. */
 
 SELECT
     id_campeonato,
@@ -7787,9 +7604,6 @@ WHERE
 GROUP BY
     id_campeonato;
 
-/*  Lista a média de valor de premiação por campeonato para os campeonatos 2, 8, e 14.
-    Arredonda para exibir com 1 casa decimal. */
-
 SELECT
     id_campeonato,
     AVG(valor_premiacao) AS media_premiacao
@@ -7799,19 +7613,6 @@ WHERE
     id_campeonato IN ( 2, 8, 14 )
 GROUP BY
     id_campeonato;
-
-/*  Encontra a quantidade de atletas que pratica cada modalidade esportiva. */
-
-/*  Para cada modalidade esportiva praticada, lista o maior e o menor tempo de experiência.
-    Ordena os resultados por id de modalidade. */
-
-/*  Lista o id do campeonato e a quantidade de atletas que participaram deles, exibindo somente os campeonatos com mais de 3 participantes.
-    Ordena os resultados por quantidade de participantes decrescentemente. */
-    
-/*  Lista a média de colocação dos atletas participantes de campeonatos, exibindo o número de registro do atleta e sua colocação media truncada sem casas decimais.
-    Descarta as tuplas em que não houve valor de premiação.
-    Deixa na listagem apenas os atletas com colocação média até o décimo lugar.
-    Ordena os resultados por colocação média. */
 
 CREATE USER snoopy IDENTIFIED BY snoopy;
 
@@ -7968,25 +7769,3 @@ SELECT
     last_number
 FROM
     user_sequences;
-
-/* Crie um usuário chamado user01, colocando a senha user01. */
-
-CREATE USER user01 IDENTIFIED BY user01;
-
-/* Trave a conta do usuário user01. Tente conectar como user01. */
-
-ALTER USER user01
-    ACCOUNT LOCK;
-    
-/* Destrave a conta do usuário user01. Tente conectar como user01. */
-
-ALTER USER user01
-    ACCOUNT UNLOCK;
-    
-/* Conceda o privilégio que permite ao user01 conectar-se no banco. */
-
-GRANT
-    CREATE SESSION
-TO user01;
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON woodstock.atleta TO snoopy;
