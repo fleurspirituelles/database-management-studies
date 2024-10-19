@@ -7321,3 +7321,24 @@ BEGIN
     END IF;
 END;
 /
+
+CREATE OR REPLACE FUNCTION fu_get_total_camp (
+    p_nome_atleta IN VARCHAR2
+) RETURN NUMBER IS
+    v_total_campeonatos NUMBER;
+BEGIN
+    SELECT
+        COUNT(*)
+    INTO v_total_campeonatos
+    FROM
+             atleta a
+        JOIN pratica   p ON a.id = p.id_atleta
+        JOIN esporte   e ON p.id_atleta = e.id_atleta
+                          AND p.id_modalidade = e.id_modalidade
+        JOIN participa part ON e.registro_atleta = part.registro_atleta
+    WHERE
+        a.nome = p_nome_atleta;
+
+    RETURN v_total_campeonatos;
+END;
+/
