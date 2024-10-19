@@ -7277,10 +7277,47 @@ SET
         WHERE
             id_modalidade = m.id
     );
-    
+
 CREATE OR REPLACE TRIGGER atualizar_idade_atleta BEFORE
     INSERT OR UPDATE ON atleta
     FOR EACH ROW
 BEGIN
     :new.idade := trunc(months_between(sysdate, :new.datanasc) / 12);
 END;
+/
+
+CREATE OR REPLACE TRIGGER atualizar_qtde_praticantes AFTER
+    INSERT OR UPDATE OR DELETE ON pratica
+    FOR EACH ROW
+BEGIN
+    IF inserting OR updating THEN
+        UPDATE modalidade m
+        SET
+            m.qtde_praticantes = (
+                SELECT
+                    COUNT(*)
+                FROM
+                    pratica p
+                WHERE
+                    p.id_modalidade = m.id
+            )
+        WHERE
+            m.id = :new.id_modalidade;
+
+    ELSIF deleting THEN
+        UPDATE modalidade m
+        SET
+            m.qtde_praticantes = (
+                SELECT
+                    COUNT(*)
+                FROM
+                    pratica p
+                WHERE
+                    p.id_modalidade = m.id
+            )
+        WHERE
+            m.id = :old.id_modalidade;
+
+    END IF;
+END;
+/
