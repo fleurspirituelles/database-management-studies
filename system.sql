@@ -7277,3 +7277,10 @@ SET
         WHERE
             id_modalidade = m.id
     );
+    
+CREATE OR REPLACE TRIGGER atualizar_idade_atleta BEFORE
+    INSERT OR UPDATE ON atleta
+    FOR EACH ROW
+BEGIN
+    :new.idade := trunc(months_between(sysdate, :new.datanasc) / 12);
+END;
