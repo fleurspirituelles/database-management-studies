@@ -20,7 +20,6 @@ ALTER TABLE pessoa
         REFERENCES categoria ( categ_id );
 
 BEGIN
-    dbms_output.put_line('Populando a tabela categoria...');
     INSERT INTO categoria VALUES (
         1,
         'Nivel A'
@@ -122,7 +121,6 @@ BEGIN
     );
 
     COMMIT;
-    dbms_output.put_line('Iniciando a carga de dados da tabela pessoa...');
     FOR i IN 1..100000 LOOP
         INSERT INTO pessoa (
             id,
@@ -138,8 +136,6 @@ BEGIN
     END LOOP;
 
     COMMIT;
-    dbms_output.put_line('Carga de dados da tabela pessoa concluída com sucesso!');
-    dbms_output.put_line('Atualizando a coluna cor dos olhos...');
     UPDATE pessoa
     SET
         cor_olhos = 'A'
@@ -165,7 +161,6 @@ BEGIN
         mod(id, 4) = 3;
 
     COMMIT;
-    dbms_output.put_line('Atualizando a coluna sexo...');
     UPDATE pessoa
     SET
         sexo = 'M'
@@ -179,7 +174,6 @@ BEGIN
         mod(id, 2) = 1;
 
     COMMIT;
-    dbms_output.put_line('Atualizando a coluna de id de categoria...');
     UPDATE pessoa
     SET
         categ_id = 1
@@ -301,5 +295,4 @@ BEGIN
         mod(id, 20) = 19;
 
     COMMIT;
-    dbms_output.put_line('Script executado com sucesso!');
 END;
