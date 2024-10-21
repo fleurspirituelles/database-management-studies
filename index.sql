@@ -1,5 +1,3 @@
-set serveroutput on
-
 CREATE TABLE pessoa (
     id        NUMBER,
     nome      VARCHAR2(30),
@@ -296,3 +294,83 @@ BEGIN
 
     COMMIT;
 END;
+/
+
+CREATE INDEX pessoa_nome_ix ON
+    pessoa (
+        nome
+    );
+
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+    nome = 'Joao 062000';
+
+CREATE INDEX pessoa_sexo_ix ON
+    pessoa (
+        sexo
+    );
+
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+    sexo = 'M';
+
+SELECT
+    p.nome,
+    c.descricao
+FROM
+    pessoa    p,
+    categoria c
+WHERE
+    p.categ_id = c.categ_id;
+
+SELECT
+    p.nome,
+    c.descricao
+FROM
+    pessoa    p,
+    categoria c
+WHERE
+        p.categ_id = c.categ_id
+    AND p.categ_id = 12;
+
+CREATE INDEX pessoa_nome2_ix ON
+    pessoa ( upper(nome) );
+
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+    upper(nome) = 'JOAO 062000';
+
+CREATE INDEX pessoa_cat_nome_ix ON
+    pessoa (
+        categ_id,
+        nome
+    );
+
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+        categ_id = 1
+    AND nome LIKE 'Joao 09%';
+
+CREATE BITMAP INDEX pessoa_olhos_bmix ON
+    pessoa (
+        cor_olhos
+    );
+
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+    cor_olhos = 'A';
