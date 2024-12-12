@@ -31,7 +31,7 @@ CREATE TABLE atleta (
     sexo     CHAR(1),
     datanasc DATE,
     endereco VARCHAR2(50),
-    salario  NUMBER(8, 2) NOT NULL,
+    salario  NUMBER(10, 2) NOT NULL,
     id_clube NUMBER(4),
     CONSTRAINT atleta_pk PRIMARY KEY ( id ),
     CONSTRAINT atleta_uk UNIQUE ( cpf ),
@@ -1184,3 +1184,75 @@ BEGIN
 END;
 /
 */
+
+CREATE OR REPLACE FUNCTION fu_calcula_reajuste (
+    p_id         IN atleta.id%TYPE,
+    p_percentual IN NUMBER
+) RETURN NUMBER IS
+    v_salario        atleta.salario%TYPE;
+    v_valor_reajuste atleta.salario%TYPE;
+BEGIN
+    SELECT
+        salario
+    INTO v_salario
+    FROM
+        atleta
+    WHERE
+        id = p_id;
+
+    v_valor_reajuste := v_salario * ( 1 + p_percentual / 100 );
+    RETURN v_valor_reajuste;
+END fu_calcula_reajuste;
+/
+
+SELECT
+    salario
+FROM
+    atleta
+WHERE
+    id = 1;
+
+CREATE OR REPLACE PROCEDURE pr_altera_salario_atleta (
+    p_atleta_id  IN atleta.id%TYPE,
+    p_percentual IN NUMBER
+) AS
+
+    v_atleta_nome        atleta.nome%TYPE;
+    v_salario_atual      atleta.salario%TYPE;
+    v_salario_atualizado atleta.salario%TYPE;
+BEGIN
+    SELECT
+        nome,
+        salario
+    INTO
+        v_atleta_nome,
+        v_salario_atual
+    FROM
+        atleta
+    WHERE
+        id = p_atleta_id;
+
+    dbms_output.put_line('O salário atual do atleta '
+                         || v_atleta_nome
+                         || ' é '
+                         || v_salario_atual
+                         || '.');
+
+    v_salario_atualizado := fu_calcula_reajuste(p_atleta_id, p_percentual);
+    UPDATE atleta
+    SET
+        salario = v_salario_atualizado
+    WHERE
+        id = p_atleta_id;
+
+    COMMIT;
+    dbms_output.put_line('O novo salário do atleta '
+                         || v_atleta_nome
+                         || ' é '
+                         || v_salario_atualizado
+                         || '.');
+
+END;
+/
+
+EXEC pr_altera_salario_atleta(1,10);
