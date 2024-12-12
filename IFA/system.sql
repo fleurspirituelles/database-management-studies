@@ -512,6 +512,7 @@ INSERT INTO centro_treinamento (
 
 SET SERVEROUTPUT ON;
 
+/*
 UNDEFINE v_atleta_id;
 
 DECLARE
@@ -1104,11 +1105,6 @@ SELECT
 FROM
     dual;
 
-SELECT
-    fu_get_premiacao_atleta_periodo('Talitha', TO_DATE('01/01/2014', 'dd/mm/yyyy'), TO_DATE('31/12/2025', 'dd/mm/yyyy')) AS premiacao
-FROM
-    dual;
-
 CREATE OR REPLACE PROCEDURE pr_get_info_clube (
     p_nome_clube        IN clube.nome%TYPE,
     p_media_idade       OUT NUMBER,
@@ -1148,7 +1144,7 @@ BEGIN
 
     dbms_output.put_line('A folha salarial desse clube é R$'
                          || p_folha_salarial
-                         || '.');
+                         || ',00.');
     dbms_output.put_line('O número de atletas desse clube é '
                          || p_quantidade_atleta
                          || '.');
@@ -1186,3 +1182,5 @@ BEGIN
         pr_get_info_clube(reg_clube.nome, v_idade, v_sal, v_qtde);
     END LOOP;
 END;
+/
+*/
